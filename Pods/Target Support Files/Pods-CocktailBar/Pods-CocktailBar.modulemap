@@ -1,0 +1,6 @@
+framework module Pods_CocktailBar {
+  umbrella header "Pods-CocktailBar-umbrella.h"
+
+  export *
+  module * { export * }
+}
