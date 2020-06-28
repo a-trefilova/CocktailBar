@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		12E12F6524A2BACF00183DD0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6424A2BACF00183DD0 /* TableViewCell.swift */; };
 		12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6624A3439800183DD0 /* SearchViewController.swift */; };
 		12E12F6F24A7990D00183DD0 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */; };
+		12E12F7124A941E900183DD0 /* SearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E12F7024A941E900183DD0 /* SearchViewCell.xib */; };
+		12E12F7324A946D600183DD0 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F7224A946D600183DD0 /* WebImageView.swift */; };
 		12EE36FD2485870400E95779 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE36FC2485870400E95779 /* AppDelegate.swift */; };
 		12EE36FF2485870400E95779 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE36FE2485870400E95779 /* SceneDelegate.swift */; };
 		12EE37012485870400E95779 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE37002485870400E95779 /* TableViewController.swift */; };
@@ -26,6 +28,8 @@
 		12E12F6424A2BACF00183DD0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		12E12F6624A3439800183DD0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
+		12E12F7024A941E900183DD0 /* SearchViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewCell.xib; sourceTree = "<group>"; };
+		12E12F7224A946D600183DD0 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		12EE36F92485870400E95779 /* CocktailBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocktailBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EE36FC2485870400E95779 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12EE36FE2485870400E95779 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 			children = (
 				12E12F6424A2BACF00183DD0 /* TableViewCell.swift */,
 				12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */,
+				12E12F7024A941E900183DD0 /* SearchViewCell.xib */,
+				12E12F7224A946D600183DD0 /* WebImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,7 +136,6 @@
 				9973F54091611024506A5D79 /* Pods-CocktailBar.debug.xcconfig */,
 				F39914458B1B96F193F0BEB9 /* Pods-CocktailBar.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -202,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12E12F7124A941E900183DD0 /* SearchViewCell.xib in Resources */,
 				12EE37092485870600E95779 /* LaunchScreen.storyboard in Resources */,
 				12EE37062485870600E95779 /* Assets.xcassets in Resources */,
 				12EE37042485870400E95779 /* Main.storyboard in Resources */,
@@ -260,6 +266,7 @@
 				12EE37012485870400E95779 /* TableViewController.swift in Sources */,
 				12EE36FD2485870400E95779 /* AppDelegate.swift in Sources */,
 				12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */,
+				12E12F7324A946D600183DD0 /* WebImageView.swift in Sources */,
 				12E12F6F24A7990D00183DD0 /* SearchViewCell.swift in Sources */,
 				12EE36FF2485870400E95779 /* SceneDelegate.swift in Sources */,
 				12EE371724858A6100E95779 /* NetworkManager.swift in Sources */,

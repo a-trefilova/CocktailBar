@@ -37,7 +37,7 @@ class SearchViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         
         //setUp search Controller
         searchController.searchResultsUpdater = self
@@ -135,8 +135,14 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchViewCell
-        cell.cocktailLabel.text = searchResults[indexPath.row].drinkName
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
+        
+       // cell.cocktailImage.set(imageURL: searchResults[indexPath.row].imageUrl)
+        cell.drinkNameLabel.text = searchResults[indexPath.row].drinkName
+        cell.categoryLabel.text = searchResults[indexPath.row].category
+        cell.isAlcoholLabel.text = searchResults[indexPath.row].isAlco
+       // cell.setData(with: searchResults[indexPath.row])
         return cell
     }
     
