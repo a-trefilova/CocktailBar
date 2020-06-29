@@ -17,6 +17,7 @@ class SearchViewController: UIViewController{
     var searchResults = [CurrentCocktail]()
     var networkManager = CocktailNetworkManager()
     
+    
     var database: Connection!
     
     let cocktailsTable = Table("cocktails")
@@ -119,7 +120,7 @@ class SearchViewController: UIViewController{
                                            instructions: cocktail[self.instruction],
                                            imageUrl: cocktail[self.instruction])
                 searchResults.append(item)
-                print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName])")
+                print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName]), imageurl: \(cocktail[self.imageUrl])")
             }
         } catch {
             print(error)
@@ -130,6 +131,7 @@ class SearchViewController: UIViewController{
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchResults.count
     }
@@ -137,13 +139,12 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
-        
-       // cell.cocktailImage.set(imageURL: searchResults[indexPath.row].imageUrl)
-        cell.drinkNameLabel.text = searchResults[indexPath.row].drinkName
-        cell.categoryLabel.text = searchResults[indexPath.row].category
-        cell.isAlcoholLabel.text = searchResults[indexPath.row].isAlco
-       // cell.setData(with: searchResults[indexPath.row])
+        cell.setData(with: searchResults[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return SearchViewCell.cellHeight
     }
     
     
