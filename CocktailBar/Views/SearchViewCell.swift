@@ -30,7 +30,8 @@ class SearchViewCell: UITableViewCell {
     
         
     static let reuseId = "SearchCell"
-    static let cellHeight: CGFloat = 255
+    static let cellHeight: CGFloat = 200
+    
     
     
     override func awakeFromNib() {
@@ -44,6 +45,9 @@ class SearchViewCell: UITableViewCell {
         
         cardView.layer.cornerRadius = 5
         cardView.clipsToBounds = true
+        
+        
+        
         // Initialization code
     }
     

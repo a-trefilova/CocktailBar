@@ -16,75 +16,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="W1A-cp-Ltj">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="268" width="414" height="628"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="E0m-lM-HDN" id="mz1-XK-Fxa"/>
                                     <outlet property="delegate" destination="E0m-lM-HDN" id="uEe-a6-b0f"/>
                                 </connections>
                             </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PVV-za-o1y">
+                                <rect key="frame" x="0.0" y="88" width="414" height="180"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="lFR-nZ-XVL"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CsL-Q4-Wn0">
+                                    <size key="itemSize" width="100" height="150"/>
+                                    <size key="estimatedItemSize" width="100" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="E0m-lM-HDN" id="4zy-8o-syb"/>
+                                    <outlet property="delegate" destination="FaC-Tx-NtV" id="RtR-zs-7wE"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="PVV-za-o1y" firstAttribute="trailing" secondItem="qyo-zq-BlT" secondAttribute="trailing" id="6jQ-hn-nXH"/>
                             <constraint firstItem="W1A-cp-Ltj" firstAttribute="trailing" secondItem="qyo-zq-BlT" secondAttribute="trailing" id="7lU-Dt-qQ3"/>
+                            <constraint firstItem="PVV-za-o1y" firstAttribute="leading" secondItem="qyo-zq-BlT" secondAttribute="leading" id="8hP-zU-7YT"/>
                             <constraint firstAttribute="bottom" secondItem="W1A-cp-Ltj" secondAttribute="bottom" id="AMt-Xp-1XG"/>
                             <constraint firstItem="W1A-cp-Ltj" firstAttribute="leading" secondItem="qyo-zq-BlT" secondAttribute="leading" id="NrL-8r-P6p"/>
-                            <constraint firstItem="W1A-cp-Ltj" firstAttribute="top" secondItem="qyo-zq-BlT" secondAttribute="top" id="rqM-1R-TCp"/>
+                            <constraint firstItem="PVV-za-o1y" firstAttribute="top" secondItem="qyo-zq-BlT" secondAttribute="top" id="hKG-2c-cPH"/>
+                            <constraint firstItem="W1A-cp-Ltj" firstAttribute="top" secondItem="PVV-za-o1y" secondAttribute="bottom" id="iCT-aZ-iap"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qyo-zq-BlT"/>
                     </view>
                     <navigationItem key="navigationItem" id="FaC-Tx-NtV"/>
                     <connections>
+                        <outlet property="collectionView" destination="PVV-za-o1y" id="eSa-jg-K9K"/>
                         <outlet property="tableView" destination="W1A-cp-Ltj" id="vtk-4p-9GM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yee-Ao-87A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-152.17391304347828" y="44.866071428571423"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="4eJ-Ix-7Uv">
-            <objects>
-                <tableViewController id="osI-rk-3Py" customClass="TableViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="N7J-2z-OWM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="8Im-ay-AIj" customClass="TableViewCell" customModule="CocktailBar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Im-ay-AIj" id="tdE-TF-MT2">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkf-u9-MBb">
-                                            <rect key="frame" x="9" y="11" width="43" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="nameLabel" destination="fkf-u9-MBb" id="6ya-UZ-RL1"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="osI-rk-3Py" id="dvv-wK-FsN"/>
-                            <outlet property="delegate" destination="osI-rk-3Py" id="CpJ-vx-6Ze"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="6mr-YC-7Ri"/>
-                    <connections>
-                        <outlet property="tableView" destination="N7J-2z-OWM" id="gXr-ba-aMv"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xXH-bn-ZRg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="763.768115942029" y="42.857142857142854"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gr3-8R-5nn">

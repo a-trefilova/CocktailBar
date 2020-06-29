@@ -12,9 +12,11 @@ import SQLite
 
 class SearchViewController: UIViewController{
 
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     
     var searchResults = [CurrentCocktail]()
+    var collections = [CollectionModel]()
     var networkManager = CocktailNetworkManager()
     
     
@@ -39,6 +41,18 @@ class SearchViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
+        collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
+    
+        
+        
+        
+        
+        collections.append(PresentedData.collection1)
+        collections.append(PresentedData.collection2)
+        collections.append(PresentedData.collection3)
+        collections.append(PresentedData.collection4)
+        collections.append(PresentedData.collection5)
+        
         
         //setUp search Controller
         searchController.searchResultsUpdater = self
@@ -147,6 +161,19 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return SearchViewCell.cellHeight
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let cocktail = searchResults[indexPath.row]
+        let likeAction = UIContextualAction(style: .normal,
+                                            title: "Like") { (_, _, _) in
+                                                PresentedData.arrayOfLovelyCocktails.append(cocktail)
+        }
+        return UISwipeActionsConfiguration(actions: [likeAction])
+    }
+    
     
 }
 
@@ -181,9 +208,30 @@ extension SearchViewController: UISearchResultsUpdating {
 
 }
 
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseId , for: indexPath) as! CollectionViewCell
+        cell.collectionLabel.text = collections[indexPath.row].name
+        cell.emojiLabel.text = collections[indexPath.row].emoji
+        
+        return cell
+    }
+    
+    
+}
+
 
 class PresentedData {
-    var arrayOfRecentCocktails = [Drink]()
-    var arrayOfLovelyCocktails = [Drink]()
-    var arrayOfMostPopularCocktails = [Drink]()
+
+    static var arrayOfLovelyCocktails = [CurrentCocktail]()
+    
+    static let collection1 = CollectionCreation().createModel(by: "rum")
+    static let collection2 = CollectionCreation().createModel(by: "gin")
+    static let collection3 = CollectionCreation().createModel(by: "vodka")
+    static let collection4 = CollectionCreation().createModel(by: "tequila")
+    static let collection5 = CollectionCreation().createModel(by: "vine")
 }
