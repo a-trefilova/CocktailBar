@@ -17,7 +17,6 @@
 		12EE37062485870600E95779 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EE37052485870600E95779 /* Assets.xcassets */; };
 		12EE37092485870600E95779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12EE37072485870600E95779 /* LaunchScreen.storyboard */; };
 		12EE3713248588D900E95779 /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE3712248588D900E95779 /* Cocktail.swift */; };
-		12EE37152485899F00E95779 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE37142485899F00E95779 /* Constants.swift */; };
 		12EE371724858A6100E95779 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE371624858A6100E95779 /* NetworkManager.swift */; };
 		78B7C77CB4AF668749201AF7 /* Pods_CocktailBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDBCB48EDDC8FE6884E5F69 /* Pods_CocktailBar.framework */; };
 /* End PBXBuildFile section */
@@ -35,7 +34,6 @@
 		12EE37082485870600E95779 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12EE370A2485870600E95779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12EE3712248588D900E95779 /* Cocktail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cocktail.swift; sourceTree = "<group>"; };
-		12EE37142485899F00E95779 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		12EE371624858A6100E95779 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9973F54091611024506A5D79 /* Pods-CocktailBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocktailBar.debug.xcconfig"; path = "Target Support Files/Pods-CocktailBar/Pods-CocktailBar.debug.xcconfig"; sourceTree = "<group>"; };
 		CBDBCB48EDDC8FE6884E5F69 /* Pods_CocktailBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocktailBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				12EE3712248588D900E95779 /* Cocktail.swift */,
-				12EE37142485899F00E95779 /* Constants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -264,7 +261,6 @@
 				12EE36FF2485870400E95779 /* SceneDelegate.swift in Sources */,
 				12EE371724858A6100E95779 /* NetworkManager.swift in Sources */,
 				12EE3713248588D900E95779 /* Cocktail.swift in Sources */,
-				12EE37152485899F00E95779 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
