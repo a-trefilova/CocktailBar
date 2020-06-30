@@ -15,14 +15,11 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var instructionLabel: UILabel!
     
-    var item = CurrentCocktail(drinkId: "",
-                               drinkName: "",
-                               category: "",
-                               isAlco: "",
-                               glasses: "",
-                               instructions: "",
-                               imageUrl: "")
-
+    var item: CurrentCocktail!  {
+        didSet {
+            print("item data is here")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         nameLabel.text = item.drinkName

@@ -99,7 +99,7 @@ class SearchViewController: UIViewController{
         
         do {
             try self.database.run(createTable)
-            print("Table has been successfully created")
+            //print("Table has been successfully created")
         } catch {
             print(error)
         }
@@ -116,7 +116,7 @@ class SearchViewController: UIViewController{
         
         do {
             try self.database.run(insertCocktail)
-            print("Cocktails have been successfully inserted")
+           // print("Cocktails have been successfully inserted")
             
         } catch {
             print(error)
@@ -135,13 +135,23 @@ class SearchViewController: UIViewController{
                                            instructions: cocktail[self.instruction],
                                            imageUrl: cocktail[self.instruction])
                 searchResults.append(item)
-                print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName]), imageurl: \(cocktail[self.imageUrl])")
+               // print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName]), imageurl: \(cocktail[self.imageUrl])")
             }
         } catch {
             print(error)
         }
     }
 
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "showDetails" {
+//            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+//            let cocktailItem = searchResults[indexPath.row]
+//            print("\n\n\n\n\n\n\n\(cocktailItem)\n\n\n\n\n\n\n\n\n")
+//            let detailVC = segue.destination as! DetailViewController
+//            detailVC.item = cocktailItem
+//        }
+//    }
 
 }
 
@@ -164,7 +174,13 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "showDetails", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        detailVC.item = searchResults[indexPath.row]
+        self.present(detailVC, animated: true, completion: nil)
+        
+        //performSegue(withIdentifier: "showDetails", sender: self)
+        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -178,15 +194,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
 
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "showDetails" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let cocktailItem = searchResults[indexPath.row]
-            let detailVC = segue.destination as! DetailViewController
-            detailVC.item = cocktailItem
-        }
-    }
+    
     
 }
 

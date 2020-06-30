@@ -84,7 +84,7 @@ func fetchCurrentCocktail(url: String, completion: @escaping (_ cocktails: [Curr
                             
                             
                         }
-                        print(cocktailArray)
+                        //print(cocktailArray)
                        completion(cocktailArray)
                     }
                 }

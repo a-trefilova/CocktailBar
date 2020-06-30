@@ -69,7 +69,7 @@
         <!--Detail View Controller-->
         <scene sceneID="pM3-iZ-1gf">
             <objects>
-                <viewController id="O4m-aO-IRY" customClass="DetailViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="O4m-aO-IRY" customClass="DetailViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gJH-Pr-gyL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -69,12 +69,6 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                <color key="value" red="0.43707626579999997" green="0.69283635129999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                <color key="value" red="0.92366462949999995" green="0.86258852480000003" blue="0.57624393699999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
@@ -84,14 +78,6 @@
                     <constraint firstAttribute="bottom" secondItem="spE-9R-Xcx" secondAttribute="bottom" constant="10" id="Xzr-KJ-frq"/>
                     <constraint firstItem="spE-9R-Xcx" firstAttribute="top" secondItem="40y-Pg-Y7s" secondAttribute="top" constant="10" id="yZi-HK-MlM"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                        <color key="value" red="0.43707626579999997" green="0.69283635129999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </userDefinedRuntimeAttribute>
-                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                        <color key="value" red="0.92366462949999995" green="0.86258852480000003" blue="0.57624393699999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </userDefinedRuntimeAttribute>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <connections>
                 <outlet property="activityIndicator" destination="yWV-o9-f40" id="ACf-1R-cJT"/>
