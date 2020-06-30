@@ -20,6 +20,7 @@ class SearchViewController: UIViewController{
     var networkManager = CocktailNetworkManager()
     
     
+    
     var database: Connection!
     
     let cocktailsTable = Table("cocktails")
@@ -163,6 +164,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showDetails", sender: self)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -174,6 +176,17 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [likeAction])
     }
     
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showDetails" {
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let cocktailItem = searchResults[indexPath.row]
+            let detailVC = segue.destination as! DetailViewController
+            detailVC.item = cocktailItem
+        }
+    }
     
 }
 
