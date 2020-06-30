@@ -31,6 +31,14 @@ class SearchViewController: UIViewController{
     let glasses = Expression<String>("glasses")
     let instruction = Expression<String>("instruction")
     let imageUrl = Expression<String>("imageUrl")
+    let ingridient1 = Expression<String?>("ingridient1")
+    let ingridient2 = Expression<String?>("ingridient2")
+    let ingridient3 = Expression<String?>("ingridient3")
+    let ingridient4 = Expression<String?>("ingridient4")
+    let ingridient5 = Expression<String?>("ingridient5")
+    let ingridient6 = Expression<String?>("ingridient6")
+    let ingridient7 = Expression<String?>("ingridient7")
+    
     
     
     private var searchController = UISearchController(searchResultsController: nil) {
@@ -81,12 +89,12 @@ class SearchViewController: UIViewController{
     }
     
     private func createTable() {
-//        do {
-//            try database.run(cocktailsTable.drop(ifExists: true))
-//        } catch {
-//            print(error)
-//        }
-//
+        do {
+            try database.run(cocktailsTable.drop(ifExists: true))
+        } catch {
+            print(error)
+        }
+
         let createTable = self.cocktailsTable.create { (table) in
             table.column(self.drinkId, primaryKey: true)
             table.column(self.drinkName, unique: true)
@@ -95,6 +103,13 @@ class SearchViewController: UIViewController{
             table.column(self.glasses)
             table.column(self.instruction)
             table.column(self.imageUrl)
+            table.column(self.ingridient1)
+            table.column(self.ingridient2)
+            table.column(self.ingridient3)
+            table.column(self.ingridient4)
+            table.column(self.ingridient5)
+            table.column(self.ingridient6)
+            table.column(self.ingridient7)
         }
         
         do {
@@ -112,7 +127,14 @@ class SearchViewController: UIViewController{
                                                         self.alcohol <- cocktail.isAlco,
                                                         self.glasses <- cocktail.glasses,
                                                         self.instruction <- cocktail.instructions,
-                                                        self.imageUrl <- cocktail.imageUrl)
+                                                        self.imageUrl <- cocktail.imageUrl,
+                                                        self.ingridient1 <- cocktail.ingridient1,
+                                                        self.ingridient2 <- cocktail.ingridient2,
+                                                        self.ingridient3 <- cocktail.ingridient3,
+                                                        self.ingridient4 <- cocktail.ingridient4,
+                                                        self.ingridient5 <- cocktail.ingridient5,
+                                                        self.ingridient6 <- cocktail.ingridient6,
+                                                        self.ingridient7 <- cocktail.ingridient7)
         
         do {
             try self.database.run(insertCocktail)
@@ -133,8 +155,15 @@ class SearchViewController: UIViewController{
                                            isAlco: cocktail[self.alcohol],
                                            glasses: cocktail[self.glasses],
                                            instructions: cocktail[self.instruction],
-                                           imageUrl: cocktail[self.instruction])
-                searchResults.append(item)
+                                           imageUrl: cocktail[self.imageUrl],
+                                           ingridient1: cocktail[self.ingridient1],
+                                           ingridient2: cocktail[self.ingridient2],
+                                           ingridient3: cocktail[self.ingridient3],
+                                           ingridient4: cocktail[self.ingridient4],
+                                           ingridient5: cocktail[self.ingridient5],
+                                           ingridient6: cocktail[self.ingridient6],
+                                           ingridient7: cocktail[self.ingridient7])
+                    searchResults.append(item)
                // print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName]), imageurl: \(cocktail[self.imageUrl])")
             }
         } catch {
@@ -255,4 +284,8 @@ class PresentedData {
     static let collection3 = CollectionCreation().createModel(by: "vodka")
     static let collection4 = CollectionCreation().createModel(by: "tequila")
     static let collection5 = CollectionCreation().createModel(by: "vine")
+    
+    
+    
+    
 }

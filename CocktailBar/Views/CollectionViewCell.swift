@@ -21,7 +21,9 @@ class CollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         cellView.layer.cornerRadius = 15
+        cellView.clipsToBounds = true
         gradientView.layer.cornerRadius = 15
+        gradientView.clipsToBounds = true 
         
         collectionLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         collectionLabel.highlightedTextColor = .systemYellow

@@ -13,7 +13,19 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var cocktailImage: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    @IBOutlet weak var ingridient1Label: UILabel!
+    @IBOutlet weak var ingridient2Label: UILabel!
+    @IBOutlet weak var ingridient3Label: UILabel!
+    @IBOutlet weak var ingridient4Label: UILabel!
+    @IBOutlet weak var ingridient5Label: UILabel!
+    @IBOutlet weak var ingridient6Label: UILabel!
+    
+    
     @IBOutlet weak var instructionLabel: UILabel!
+    
+    
+    
     
     var item: CurrentCocktail!  {
         didSet {
@@ -22,6 +34,20 @@ class DetailViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameLabel.layer.cornerRadius = 10
+        nameLabel.clipsToBounds = true
+        
+        cocktailImage.layer.cornerRadius = 10
+        cocktailImage.clipsToBounds = true
+        
+        categoryLabel.layer.cornerRadius = 10
+        categoryLabel.clipsToBounds = true
+        
+        instructionLabel.layer.cornerRadius = 15
+        instructionLabel.clipsToBounds = true
+        
+        //fill outlets with data
         nameLabel.text = item.drinkName
         PictureManager.downloadImage(url: item.imageUrl, completion: { [weak self] (data) in
             DispatchQueue.main.async {
@@ -30,6 +56,14 @@ class DetailViewController: UIViewController {
         })
         categoryLabel.text = item.category
         instructionLabel.text = item.instructions
+        ingridient1Label.text = item.ingridient1
+        ingridient2Label.text = item.ingridient2
+        ingridient3Label.text = item.ingridient3
+        ingridient4Label.text = item.ingridient4
+        ingridient5Label.text = item.ingridient5
+        ingridient6Label.text = item.ingridient6
+        
+        
         // Do any additional setup after loading the view.
     }
     

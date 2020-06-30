@@ -46,6 +46,13 @@ struct CurrentCocktail {
     let glasses: String
     let instructions: String
     let imageUrl: String
+    let ingridient1: String?
+    let ingridient2: String?
+    let ingridient3: String?
+    let ingridient4: String?
+    let ingridient5: String?
+    let ingridient6: String?
+    let ingridient7: String?
     
 
 }
@@ -77,7 +84,15 @@ func fetchCurrentCocktail(url: String, completion: @escaping (_ cocktails: [Curr
                                                            isAlco: cocktailsDictionary["strAlcoholic"] as! String,
                                                            glasses: cocktailsDictionary["strGlass"] as! String,
                                                            instructions: cocktailsDictionary["strInstructions"] as! String,
-                                                           imageUrl: cocktailsDictionary["strDrinkThumb"] as! String)
+                                                           imageUrl: cocktailsDictionary["strDrinkThumb"] as! String,
+                                                           ingridient1: cocktailsDictionary["strIngredient1"] as? String,
+                                                           ingridient2: cocktailsDictionary["strIngredient2"] as? String,
+                                                           ingridient3: cocktailsDictionary["strIngredient3"] as? String,
+                                                           ingridient4: cocktailsDictionary["strIngredient4"] as? String,
+                                                           ingridient5: cocktailsDictionary["strIngredient5"] as? String,
+                                                           ingridient6: cocktailsDictionary["strIngredient6"] as? String,
+                                                           ingridient7: cocktailsDictionary["strIngredient7"] as? String
+                                                           )
                             
                             cocktailArray.append(cocktails)
                             
