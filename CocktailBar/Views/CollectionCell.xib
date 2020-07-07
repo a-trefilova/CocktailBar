@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2us-Nw-IHr" customClass="CollectionViewCell" customModule="CocktailBar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="51N-iU-Lxz">
+                <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sD-KS-fQs" customClass="GradientView" customModule="CocktailBar" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" red="1" green="0.73897832630000004" blue="0.96970564130000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" red="0.68172735009999996" green="0.79979449150000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-yS-dmS" userLabel="CellView">
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nS6-7K-oPU">
+                                <rect key="frame" x="8" y="11" width="340" height="293"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="nS6-7K-oPU" secondAttribute="bottom" constant="11" id="Lzs-38-6pB"/>
+                            <constraint firstItem="nS6-7K-oPU" firstAttribute="top" secondItem="XjZ-yS-dmS" secondAttribute="top" constant="11" id="oUx-xa-CyZ"/>
+                            <constraint firstItem="nS6-7K-oPU" firstAttribute="leading" secondItem="XjZ-yS-dmS" secondAttribute="leading" constant="8" id="xqN-po-X9g"/>
+                            <constraint firstAttribute="trailing" secondItem="nS6-7K-oPU" secondAttribute="trailing" constant="8" id="zPF-7g-PTX"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XjZ-yS-dmS" firstAttribute="leading" secondItem="51N-iU-Lxz" secondAttribute="leading" id="1is-f0-QQ8"/>
+                    <constraint firstItem="9sD-KS-fQs" firstAttribute="leading" secondItem="51N-iU-Lxz" secondAttribute="leading" id="7pp-a1-wGn"/>
+                    <constraint firstAttribute="bottom" secondItem="XjZ-yS-dmS" secondAttribute="bottom" id="I2j-Aj-WQU"/>
+                    <constraint firstItem="XjZ-yS-dmS" firstAttribute="top" secondItem="51N-iU-Lxz" secondAttribute="top" id="KCA-JW-f4k"/>
+                    <constraint firstAttribute="trailing" secondItem="XjZ-yS-dmS" secondAttribute="trailing" id="QFg-4y-e9Q"/>
+                    <constraint firstAttribute="bottom" secondItem="9sD-KS-fQs" secondAttribute="bottom" id="X5T-3A-aHi"/>
+                    <constraint firstItem="9sD-KS-fQs" firstAttribute="top" secondItem="51N-iU-Lxz" secondAttribute="top" id="bvp-JG-82f"/>
+                    <constraint firstAttribute="trailing" secondItem="9sD-KS-fQs" secondAttribute="trailing" id="z4T-mk-olS"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="356" height="315"/>
+            <connections>
+                <outlet property="cellView" destination="XjZ-yS-dmS" id="yhX-PQ-WJC"/>
+                <outlet property="collectionLabel" destination="nS6-7K-oPU" id="aRI-Xf-UWA"/>
+                <outlet property="gradientView" destination="9sD-KS-fQs" id="oga-dn-jWf"/>
+            </connections>
+            <point key="canvasLocation" x="382.60869565217394" y="104.79910714285714"/>
+        </collectionViewCell>
+    </objects>
+</document>
