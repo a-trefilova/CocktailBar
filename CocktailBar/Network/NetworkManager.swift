@@ -38,7 +38,7 @@ struct Drink: Codable {
 
 }
 
-struct CurrentCocktail {
+struct CurrentCocktail: Equatable {
     let drinkId: String
     let drinkName: String
     let category: String

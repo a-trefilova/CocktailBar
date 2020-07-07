@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+var lovelyCocktails = [CurrentCocktail]()
 
 struct DataProvider {
     

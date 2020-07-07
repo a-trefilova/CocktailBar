@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var instructionLabel: UILabel!
     
+    @IBOutlet weak var likeButtonOutlet: UIButton!
     
     
     
@@ -32,6 +33,7 @@ class DetailViewController: UIViewController {
             print("item data is here")
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,15 +69,27 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    @IBAction func likeButtonTapped(_ sender: UIButton) {
+        print("LikeButtonTapped")
+        
+        let hadCocktail = lovelyCocktails.contains { (cocktail) -> Bool in
+            if item == cocktail {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        if !hadCocktail {
+            lovelyCocktails.append(item)
+        }
+        
+       // likeButtonOutlet.imageView?.image = UIImage(systemName: "heart.fill")
+        
     }
-    */
-
+    
+    
 }
+
+
