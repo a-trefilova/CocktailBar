@@ -38,6 +38,8 @@ struct Drink: Codable {
 
 }
 
+
+
 struct CurrentCocktail: Equatable {
     let drinkId: String
     let drinkName: String

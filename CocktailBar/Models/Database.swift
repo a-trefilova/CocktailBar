@@ -1,23 +1,20 @@
 //
-//  SearchViewController.swift
+//  Database.swift
 //  CocktailBar
 //
-//  Created by Константин Сабицкий on 24.06.2020.
+//  Created by Константин Сабицкий on 09.07.2020.
 //  Copyright © 2020 Константин Сабицкий. All rights reserved.
 //
 
 import UIKit
 import SQLite
 
- var searchResults = [CurrentCocktail]()
-class SearchViewController: UIViewController{
+//DB with all finded cocktails
+var databaseArray = [CurrentCocktail]()
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var tableView: UITableView!
+
+class Database {
     
-   
-    var collections = [CollectionModel]()
-    var networkManager = CocktailNetworkManager()
     
     
     
@@ -38,46 +35,24 @@ class SearchViewController: UIViewController{
     let ingridient5 = Expression<String?>("ingridient5")
     let ingridient6 = Expression<String?>("ingridient6")
     let ingridient7 = Expression<String?>("ingridient7")
-    let isFavourite = Expression<Bool?>("isFavourite")
     
     
-    private var searchController = UISearchController(searchResultsController: nil) {
-        didSet {
-           
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
-       
-        
-        //setUp search Controller
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
-        
-        definesPresentationContext = true
-        
-        //set up database
+    func setUpDB() {
         do {
-            let documentDirectory = try FileManager.default.url(for: .documentDirectory,
-                                                                in: .userDomainMask,
-                                                                appropriateFor: nil,
-                                                                create: true)
-            let fileUrl = documentDirectory.appendingPathComponent("cocktails").appendingPathExtension("sqlite3")
-            let database = try Connection(fileUrl.path)
-            self.database = database
-            
-        }
-        catch let error{
-            print(error)
-        }
-        
-        createTable()
-        
-        
+                   let documentDirectory = try FileManager.default.url(for: .documentDirectory,
+                                                                       in: .userDomainMask,
+                                                                       appropriateFor: nil,
+                                                                       create: true)
+                   let fileUrl = documentDirectory.appendingPathComponent("cocktails").appendingPathExtension("sqlite3")
+                   let database = try Connection(fileUrl.path)
+                   self.database = database
+                   
+               }
+               catch let error{
+                   print(error)
+               }
+               
+               createTable()
     }
     
     private func createTable() {
@@ -102,7 +77,6 @@ class SearchViewController: UIViewController{
             table.column(self.ingridient5)
             table.column(self.ingridient6)
             table.column(self.ingridient7)
-            table.column(self.isFavourite)
         }
         
         do {
@@ -157,85 +131,12 @@ class SearchViewController: UIViewController{
                                            ingridient6: cocktail[self.ingridient6],
                                            ingridient7: cocktail[self.ingridient7])
                     searchResults.append(item)
-               // print("drinkId : \(cocktail[self.drinkId]), ddrinkName: \(cocktail[self.drinkName]), imageurl: \(cocktail[self.imageUrl])")
+              
             }
         } catch {
             print(error)
         }
     }
 
-
-}
-
-extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchResults.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
-        cell.setData(with: searchResults[indexPath.row])
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return SearchViewCell.cellHeight
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        detailVC.item = searchResults[indexPath.row]
-        self.present(detailVC, animated: true, completion: nil)
-        
-        //performSegue(withIdentifier: "showDetails", sender: self)
-        
-    }
-    
-    
-
-    
-    
     
 }
-
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        fetchSearchWord(searchController.searchBar.text!)
-    }
-
-    private func fetchSearchWord(_ searchText: String) {
-       let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(searchText)"
-        networkManager.fetchCurrentCocktail(url: urlString) { (cocktails) in
-            
-            //adding cocktails in database
-            for item in cocktails{
-                self.insertCocktail(fromJSON: item)
-                
-            }
-            
-            //initialize cocktail object with data FROM DATABASE, not from JSON
-            self.listCocktails()
-            
-            //update array of search results
-            searchResults = cocktails
-            
-            //update data for presentation
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        
-    }
-
-}
-
-
-    
-
-
-
-

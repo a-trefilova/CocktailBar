@@ -11,6 +11,8 @@
 		120C406624B229F8006B3789 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C406524B229F8006B3789 /* TabBarController.swift */; };
 		120C406824B260A0006B3789 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C406724B260A0006B3789 /* DataProvider.swift */; };
 		120C407024B4FD28006B3789 /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 120C406F24B4FD28006B3789 /* CollectionCell.xib */; };
+		120C407224B5A096006B3789 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C407124B5A096006B3789 /* FavouritesViewController.swift */; };
+		120C407424B65704006B3789 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C407324B65704006B3789 /* Database.swift */; };
 		12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6624A3439800183DD0 /* SearchViewController.swift */; };
 		12E12F6F24A7990D00183DD0 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */; };
 		12E12F7124A941E900183DD0 /* SearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E12F7024A941E900183DD0 /* SearchViewCell.xib */; };
@@ -35,6 +37,8 @@
 		120C406524B229F8006B3789 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		120C406724B260A0006B3789 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		120C406F24B4FD28006B3789 /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
+		120C407124B5A096006B3789 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		120C407324B65704006B3789 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		12E12F6624A3439800183DD0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		12E12F7024A941E900183DD0 /* SearchViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewCell.xib; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				12E12F6624A3439800183DD0 /* SearchViewController.swift */,
+				120C407124B5A096006B3789 /* FavouritesViewController.swift */,
 				12EB9BF224AB4F9300CE05E3 /* DetailViewController.swift */,
 				120C406324AFC5F1006B3789 /* 2CollectionViewController.swift */,
 				120C406524B229F8006B3789 /* TabBarController.swift */,
@@ -108,6 +113,7 @@
 				12EE3712248588D900E95779 /* Cocktail.swift */,
 				12EB9BEA24AA311600CE05E3 /* CollectionModel.swift */,
 				120C406724B260A0006B3789 /* DataProvider.swift */,
+				120C407324B65704006B3789 /* Database.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				120C407224B5A096006B3789 /* FavouritesViewController.swift in Sources */,
 				120C406424AFC5F1006B3789 /* 2CollectionViewController.swift in Sources */,
 				12EE36FD2485870400E95779 /* AppDelegate.swift in Sources */,
 				12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */,
@@ -294,6 +301,7 @@
 				12EE371724858A6100E95779 /* NetworkManager.swift in Sources */,
 				120C406824B260A0006B3789 /* DataProvider.swift in Sources */,
 				12EB9BE924AA27FC00CE05E3 /* CollectionCreation.swift in Sources */,
+				120C407424B65704006B3789 /* Database.swift in Sources */,
 				120C406624B229F8006B3789 /* TabBarController.swift in Sources */,
 				12EE3713248588D900E95779 /* Cocktail.swift in Sources */,
 				12EB9BEB24AA311600CE05E3 /* CollectionModel.swift in Sources */,

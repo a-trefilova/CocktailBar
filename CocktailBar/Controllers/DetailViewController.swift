@@ -26,13 +26,15 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var likeButtonOutlet: UIButton!
     
-    
+    var favVC = FavouritesViewController()
     
     var item: CurrentCocktail!  {
         didSet {
             print("item data is here")
         }
     }
+    
+    var check = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +83,22 @@ class DetailViewController: UIViewController {
             }
         }
         
-        if !hadCocktail {
-            lovelyCocktails.append(item)
-        }
+       
         
-       // likeButtonOutlet.imageView?.image = UIImage(systemName: "heart.fill")
+        check = !check
+        if check == true {
+            sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            if !hadCocktail {
+                lovelyCocktails.append(item)
+            }
+            
+        } else {
+            sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            if hadCocktail {
+                lovelyCocktails = lovelyCocktails.filter { $0 != item }
+            }
+        }
+        print(lovelyCocktails)
         
     }
     

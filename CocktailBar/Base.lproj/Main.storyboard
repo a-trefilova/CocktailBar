@@ -260,7 +260,7 @@
         <!--Favourites-->
         <scene sceneID="2rd-0R-6PA">
             <objects>
-                <viewController id="5ir-so-UwH" sceneMemberID="viewController">
+                <viewController id="5ir-so-UwH" customClass="FavouritesViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YeN-oe-dcI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,12 +269,19 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="5ir-so-UwH" id="WaP-UE-UTF"/>
+                                    <outlet property="delegate" destination="5ir-so-UwH" id="a2F-a4-BfB"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="r7q-RM-3Wr"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favourites" id="hU5-PY-mdJ"/>
+                    <connections>
+                        <outlet property="tableView" destination="CFi-mZ-mQ8" id="XCk-Xc-Gxx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97N-3e-zfk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
