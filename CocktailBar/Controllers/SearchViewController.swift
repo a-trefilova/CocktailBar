@@ -11,6 +11,7 @@ import SQLite
 
 var searchResults = [CurrentCocktail]()
 var database = [CurrentCocktail]()
+var lovelyCocktails = [CurrentCocktail]()
 class SearchViewController: UIViewController{
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -40,14 +41,16 @@ class SearchViewController: UIViewController{
         
         definesPresentationContext = true
         
-        //print(database.count)
-        db.deleteByDrinkId(drinkId: "01")
-        
         
         
     }
     
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        database = db.read()
+        print(database.count)
+    }
 
 }
 
@@ -117,7 +120,7 @@ extension SearchViewController: UISearchResultsUpdating {
                  
             }
             
-            database = self.db.read()
+            //database = self.db.read()
             
         }
             //initialize cocktail object with data FROM DATABASE, not from JSON

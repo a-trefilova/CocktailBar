@@ -36,6 +36,9 @@ class DetailViewController: UIViewController {
     
     var check = false
     
+    var db: DBHelper = DBHelper()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,19 +92,29 @@ class DetailViewController: UIViewController {
         if check == true {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             if !hadCocktail {
-                lovelyCocktails.append(item)
+               // lovelyCocktails.append(item)
+                db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
             }
             
         } else {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
             if hadCocktail {
-                lovelyCocktails = lovelyCocktails.filter { $0 != item }
+               // lovelyCocktails = lovelyCocktails.filter { $0 != item }
+                db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
             }
         }
         print(lovelyCocktails)
         
     }
     
+    private func prepareOptionalValues(string: String?) -> String {
+        guard let string = string else { return ""}
+        if string.count >= 1 {
+            return string
+        }
+        return ""
+    }
+
     
 }
 

@@ -12,16 +12,19 @@ class FavouritesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var db: DBHelper = DBHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       tableView.reloadData()
+        lovelyCocktails = db.readFavourites()
+        tableView.reloadData()
     }
     
 }
