@@ -8,15 +8,21 @@
 
 import Foundation
 import SQLite3
+import SQLite
 
 class DBHelper {
+    
+   
+    
     let dbPath: String = "cocktails.sqlite3"
     var db: OpaquePointer?
     
     init() {
-        db = openDatabase()
-        createTable()
-    }
+           
+           db = openDatabase()
+           createTable()
+           
+       }
     
     func openDatabase() -> OpaquePointer? {
         let fileUrl = try! FileManager.default.url(for: .documentDirectory,
@@ -58,11 +64,11 @@ class DBHelper {
                 return
             }
         }
-        guard  let drinkId = Int(String(drinkId)) else { return }
+       // guard  let drinkId = Int(String(drinkId)) else { return }
         let insertStatementString = "INSERT INTO cocktails (drinkId, drinkName, category, isAlco, glasses, instructions, imageUrl,  ingridient1, ingridient2, ingridient3, ingridient4, ingridient5, ingridient6, ingridient7,  isFavourite ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
         var insertStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(insertStatement, 1, Int32(drinkId))
+            sqlite3_bind_int(insertStatement, 1, Int32(drinkId)!)
             sqlite3_bind_text(insertStatement, 2, (drinkName as NSString).utf8String, -1, nil)
             sqlite3_bind_text(insertStatement, 3, (category as NSString).utf8String, -1, nil)
             sqlite3_bind_text(insertStatement, 4, (isAlco as NSString).utf8String, -1, nil)
@@ -83,7 +89,11 @@ class DBHelper {
                 int = 0
             }
             sqlite3_bind_int(insertStatement, 15, Int32(int))
-            
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("Successfully inserted row.")
+            } else {
+                print("Could not insert row.")
+            }
             
         } else {
             print("INSERT statement could not be prepared.")
@@ -96,8 +106,12 @@ class DBHelper {
         var queryStatement: OpaquePointer? = nil
         var psns: [CurrentCocktail] = []
         
-        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
-            while sqlite3_step(queryStatement) == SQLITE_ROW {
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing select: \(errmsg)")
+        }
+        while sqlite3_step(queryStatement) == SQLITE_ROW {
+            
                 let drinkId = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
                 let drinkName = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
                 let category = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
@@ -129,13 +143,13 @@ class DBHelper {
                                             ingridient6: ingridient6,
                                             ingridient7: ingridient7))
                 print("Query result: \(drinkId), \(drinkName)")
-            }
-        }  else {
-                print("SELECT statement could not be prepared")
+            
         }
         sqlite3_finalize(queryStatement)
         return psns
     }
+    
+   
     
     
     func deleteByDrinkId(drinkId: String) {

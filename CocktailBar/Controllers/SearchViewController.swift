@@ -40,8 +40,10 @@ class SearchViewController: UIViewController{
         
         definesPresentationContext = true
         
-        database = db.read()
-        print(database)
+        //print(database.count)
+        db.deleteByDrinkId(drinkId: "01")
+        
+        
         
     }
     
@@ -110,20 +112,25 @@ extension SearchViewController: UISearchResultsUpdating {
                           ingridient6: self.prepareOptionalValues(string: item.ingridient6),
                           ingridient7: self.prepareOptionalValues(string: item.ingridient7),
                           isFavourite: false)
+                
+                
                  
             }
             
+            database = self.db.read()
+            
+        }
             //initialize cocktail object with data FROM DATABASE, not from JSON
             
             //update array of search results
+        
             
-            database = self.db.read()
             
             //update data for presentation
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        }
+        
         
     }
     
