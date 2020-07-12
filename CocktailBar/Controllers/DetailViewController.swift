@@ -34,7 +34,7 @@ class DetailViewController: UIViewController {
         }
     }
     
-    var check = false
+    var check: Bool = false
     
     var db: DBHelper = DBHelper()
     
@@ -74,36 +74,31 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let tuple = db.selectItemInDB(drinkId: item.drinkId)
+        if  tuple.1 == true {
+            likeButtonOutlet.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            
+        } else if tuple.1 == false {
+            likeButtonOutlet.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
    
     @IBAction func likeButtonTapped(_ sender: UIButton) {
         print("LikeButtonTapped")
-        
-        let hadCocktail = lovelyCocktails.contains { (cocktail) -> Bool in
-            if item == cocktail {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-       
-        
         check = !check
+        
         if check == true {
+            check = true
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            if !hadCocktail {
-               // lovelyCocktails.append(item)
-                db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
-            }
+            db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
             
-        } else {
+        } else if check == false  {
+            check = false
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            if hadCocktail {
-               // lovelyCocktails = lovelyCocktails.filter { $0 != item }
-                db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
-            }
+            db.updateFavouritesByDrinkId(drinkId: item.drinkId, bool: check)
+
         }
-        print(lovelyCocktails)
         
     }
     
@@ -115,6 +110,8 @@ class DetailViewController: UIViewController {
         return ""
     }
 
+    
+     
     
 }
 
