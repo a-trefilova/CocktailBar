@@ -8,15 +8,21 @@
 
 import UIKit
 
-class _CollectionViewController: UIViewController {
+class CollectionViewController: UIViewController {
 
+// MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
     
-    var datasource = DataProvider()
+// MARK: - Public Properties
     var arrayToPresent: [CollectionModel] = [CollectionModel]()
+    var ingridients = ["gin", "rum", "vine", "beer"]
+    lazy var datasource = DataProvider()
+    
+    
+// MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareDataSource()
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -24,19 +30,21 @@ class _CollectionViewController: UIViewController {
         
     }
     
-    func prepareDataSource() {
-       let model = datasource.getModel(with: "gin")
-        let model1 = datasource.getModel(with: "rum")
-        let model2 = datasource.getModel(with: "vodka")
-        let model3 = datasource.getModel(with: "beer")
-        let model4 = datasource.getModel(with: "vine")
-        arrayToPresent.append(model)
-        arrayToPresent.append(model1)
-        arrayToPresent.append(model2)
-        arrayToPresent.append(model3)
-        arrayToPresent.append(model4)
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareCollectionVC()
+        
+    }
+  
+// MARK: - Private Methods
+   private func prepareCollectionVC() {
+        for item in ingridients {
+             DataProvider().getModel(with: item) { model in
+                self.arrayToPresent.append(model)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
         }
     }
   
@@ -49,14 +57,13 @@ class _CollectionViewController: UIViewController {
         let heightOfCell = height - 300
         
         return CGSize(width: widthOfCell, height: heightOfCell)
-        
     }
-   
-    
     
 }
 
-extension _CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+
+// MARK: - Collection View Data Source & Delegate 
+extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -86,6 +93,16 @@ extension _CollectionViewController: UICollectionViewDataSource, UICollectionVie
         return calculateSizeOfCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tableVC = storyboard.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
+        tableVC.arrayToReuse = arrayToPresent[indexPath.item].arrayOfCocktail
+        self.present(tableVC, animated: true)
+    }
     
 }
 

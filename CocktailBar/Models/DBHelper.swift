@@ -142,14 +142,142 @@ class DBHelper {
                                             ingridient5: ingridient5,
                                             ingridient6: ingridient6,
                                             ingridient7: ingridient7))
-                print("Query result: \(drinkId), \(drinkName)")
             
         }
         sqlite3_finalize(queryStatement)
         return psns
     }
     
+    
+    func readFavourites() -> [CurrentCocktail]{
+        let queryStatementString: String = "SELECT * FROM cocktails WHERE isFavourite = 1;"
+        var queryStatement: OpaquePointer? = nil
+        var psns: [CurrentCocktail] = []
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing select: \(errmsg)")
+        }
+        while sqlite3_step(queryStatement) == SQLITE_ROW {
+            
+                let drinkId = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
+                let drinkName = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
+                let category = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+                let isAlco = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+                let glasses = String(describing: String(cString: sqlite3_column_text(queryStatement, 4)))
+                let instructions = String(describing: String(cString: sqlite3_column_text(queryStatement, 5)))
+                let imageUrl = String(describing: String(cString: sqlite3_column_text(queryStatement, 6)))
+
+                let ingridient1 = String(describing: String(cString: sqlite3_column_text(queryStatement, 7)))
+                let ingridient2 = String(describing: String(cString: sqlite3_column_text(queryStatement, 8)))
+                let ingridient3 = String(describing: String(cString: sqlite3_column_text(queryStatement, 9)))
+                let ingridient4 = String(describing: String(cString: sqlite3_column_text(queryStatement, 10)))
+                let ingridient5 = String(describing: String(cString: sqlite3_column_text(queryStatement, 11)))
+                let ingridient6 = String(describing: String(cString: sqlite3_column_text(queryStatement, 12)))
+                let ingridient7 = String(describing: String(cString: sqlite3_column_text(queryStatement, 13)))
+                let isFavourite = sqlite3_column_int(queryStatement, 14)
+                psns.append(CurrentCocktail(drinkId: drinkId,
+                                            drinkName: drinkName,
+                                            category: category,
+                                            isAlco: isAlco,
+                                            glasses: glasses,
+                                            instructions: instructions,
+                                            imageUrl: imageUrl,
+                                            ingridient1: ingridient1,
+                                            ingridient2: ingridient2,
+                                            ingridient3: ingridient3,
+                                            ingridient4: ingridient4,
+                                            ingridient5: ingridient5,
+                                            ingridient6: ingridient6,
+                                            ingridient7: ingridient7))
+            
+        }
+        sqlite3_finalize(queryStatement)
+        return psns
+    }
+    
+    func selectItemInDB(drinkId: String) -> (CurrentCocktail, Bool) {
+        let queryStatementString: String = "SELECT * FROM cocktails WHERE drinkId = \(drinkId);"
+        var queryStatement: OpaquePointer? = nil
+        var psns = CurrentCocktail(drinkId: "", drinkName: "", category: "", isAlco: "", glasses: "", instructions: "", imageUrl: "", ingridient1: "", ingridient2: "", ingridient3: "", ingridient4: "", ingridient5: "", ingridient6: "", ingridient7: "")
+        var fav: Bool = false
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing select: \(errmsg)")
+        }
+        while sqlite3_step(queryStatement) == SQLITE_ROW {
+            
+                let drinkId = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
+                let drinkName = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
+                let category = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+                let isAlco = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+                let glasses = String(describing: String(cString: sqlite3_column_text(queryStatement, 4)))
+                let instructions = String(describing: String(cString: sqlite3_column_text(queryStatement, 5)))
+                let imageUrl = String(describing: String(cString: sqlite3_column_text(queryStatement, 6)))
+
+                let ingridient1 = String(describing: String(cString: sqlite3_column_text(queryStatement, 7)))
+                let ingridient2 = String(describing: String(cString: sqlite3_column_text(queryStatement, 8)))
+                let ingridient3 = String(describing: String(cString: sqlite3_column_text(queryStatement, 9)))
+                let ingridient4 = String(describing: String(cString: sqlite3_column_text(queryStatement, 10)))
+                let ingridient5 = String(describing: String(cString: sqlite3_column_text(queryStatement, 11)))
+                let ingridient6 = String(describing: String(cString: sqlite3_column_text(queryStatement, 12)))
+                let ingridient7 = String(describing: String(cString: sqlite3_column_text(queryStatement, 13)))
+                let isFavourite = sqlite3_column_int(queryStatement, 14)
+                if isFavourite == 1 {
+                    fav = true
+                } else if isFavourite == 0 {
+                    fav = false
+                }
+                psns = CurrentCocktail(drinkId: drinkId,
+                                            drinkName: drinkName,
+                                            category: category,
+                                            isAlco: isAlco,
+                                            glasses: glasses,
+                                            instructions: instructions,
+                                            imageUrl: imageUrl,
+                                            ingridient1: ingridient1,
+                                            ingridient2: ingridient2,
+                                            ingridient3: ingridient3,
+                                            ingridient4: ingridient4,
+                                            ingridient5: ingridient5,
+                                            ingridient6: ingridient6,
+                                            ingridient7: ingridient7)            
+        }
+        sqlite3_finalize(queryStatement)
+        return (psns, fav)
+    }
+    
+    
+    
+    
    
+    
+    func updateFavouritesByDrinkId(drinkId: String, bool: Bool ) {
+        var bul = 0
+        if bool {
+            bul = 1
+        } else {
+            bul = 0
+        }
+        let updateStatementStirng: String = "UPDATE cocktails SET isFavourite = \(bul) WHERE drinkId = \(drinkId);"
+        var updateStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, updateStatementStirng, -1, &updateStatement, nil) == SQLITE_OK {
+        
+            sqlite3_bind_int(updateStatement, 1, Int32(drinkId)!)
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                print("Successfully updated row.")
+            } else {
+                print("Could not update row.")
+            }
+        } else {
+            print("UPDATE statement could not be prepared")
+        }
+        sqlite3_finalize(updateStatement)
+    }
+    
+    
+    
     
     
     func deleteByDrinkId(drinkId: String) {

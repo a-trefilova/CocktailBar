@@ -10,6 +10,7 @@ import UIKit
 
 class GradientView: UIView {
     
+// MARK: - IBInspectable properties
     @IBInspectable private var startColor: UIColor? {
         didSet {
             setUpGradienColor()
@@ -20,33 +21,36 @@ class GradientView: UIView {
             setUpGradienColor()
         }
     }
+    
+// MARK: - Private Properties
     private let gradientLayer = CAGradientLayer()
     
+// MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
     }
-    
-    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUPGradient()
     }
     
+// MARK: - Lifecycle
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
     }
-    
-    func setUPGradient() {
+  
+// MARK: - Private Methods
+   private func setUPGradient() {
         self.layer.addSublayer(gradientLayer)
         setUpGradienColor()
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
     
-    func setUpGradienColor() {
+   private func setUpGradienColor() {
         if let startColor = startColor, let endColor = endColor {
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
            
