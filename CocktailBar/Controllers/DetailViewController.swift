@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
         categoryLabel.layer.cornerRadius = 10
         categoryLabel.clipsToBounds = true
         
-        instructionLabel.layer.cornerRadius = 15
+        instructionLabel.layer.cornerRadius = 5
         instructionLabel.clipsToBounds = true
         
         //fill outlets with data

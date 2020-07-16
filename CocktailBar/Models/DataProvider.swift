@@ -10,29 +10,36 @@ import UIKit
 
 
 
-struct DataProvider {
+class DataProvider {
+    var nm = CocktailNetworkManager()
     
-    //var arrayOfCollections: [CollectionModel]?
+   
+//    public  func getModel(with ingridient: String) -> CollectionModel {
+//        var model: CollectionModel!
+//        var modelArray: [CurrentCocktail] = []
+//        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(ingridient)"
+//        nm.fetchCurrentCocktail(url: urlString) {  cocktails in
+//            print(cocktails.count)
+//            modelArray = cocktails
+//
+//        }
+//        model = CollectionModel(name: ingridient, emoji: "", arrayOfCocktail: modelArray)
+//        print("Model by \(ingridient) and  number of items in array \(modelArray.count)")
+//        return model
+//    }
     
-    private func getData(with ingridient: String) -> [CurrentCocktail] {
-        let nm = CocktailNetworkManager()
-        var arrayToReturn = [CollectionModel]()
-        var cocktailsArray = [CurrentCocktail]()
+    public  func getModel(with ingridient: String, completion: @escaping (CollectionModel) -> Void) {
+        var model: CollectionModel!
+        var modelArray: [CurrentCocktail] = []
         let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(ingridient)"
-            nm.fetchCurrentCocktail(url: urlString) { (cocktails) in
-               cocktailsArray = cocktails
-           }
-        return cocktailsArray
+        nm.fetchCurrentCocktail(url: urlString) {  cocktails in
+            print(cocktails.count)
+            modelArray = cocktails
+            model = CollectionModel(name: ingridient, emoji: "", arrayOfCocktail: modelArray)
+            completion(model)
+        }
         
     }
-    
-     func getModel(with ingridient: String) -> CollectionModel {
-        let arrayOfCocktails = getData(with: ingridient)
-        let model = CollectionModel(name: ingridient, emoji: "", arrayOfCocktail: arrayOfCocktails)
-        return model
-    }
-    
-    
     
 }
 
