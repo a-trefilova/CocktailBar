@@ -9,39 +9,27 @@
 import UIKit
 import SQLite
 
-var searchResults = [CurrentCocktail]()
-var database = [CurrentCocktail]()
-var lovelyCocktails = [CurrentCocktail]()
-class SearchViewController: UIViewController{
 
+class SearchViewController: UIViewController{
+    
+// MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     
-    
+ // MARK: - Public Properties
     var collections = [CollectionModel]()
     var networkManager = CocktailNetworkManager()
     var db: DBHelper = DBHelper()
     
-    private var searchController = UISearchController(searchResultsController: nil) {
-        didSet {
-           
-        }
-    }
+// MARK: - Private Properties
+    private var searchController = UISearchController(searchResultsController: nil)
     
+    
+// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
-       
-        
-        //setUp search Controller
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
-        
-        definesPresentationContext = true
-        
-        
+        setUpSearchController()
         
     }
     
@@ -51,20 +39,43 @@ class SearchViewController: UIViewController{
         database = db.read()
         print(database.count)
     }
+    
+    
+// MARK: - Private Methods
+   private func setUpSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        
+        definesPresentationContext = true
+    }
 
 }
 
+
+
+// MARK: - Table View Data Source & Delegate 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        searchResults.count
+        if searchResults.count == 0 {
+            return database.count
+        } else {
+            return searchResults.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
-        cell.setData(with: searchResults[indexPath.row])
-        return cell
+        if searchResults.count == 0 {
+            cell.setData(with: database[indexPath.row])
+            return cell
+        } else {
+            cell.setData(with: searchResults[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -73,11 +84,17 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        detailVC.item = searchResults[indexPath.row]
-        self.present(detailVC, animated: true, completion: nil)
-        
+        if searchResults.count == 0 {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+            detailVC.item = database[indexPath.row]
+            self.present(detailVC, animated: true, completion: nil)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+            detailVC.item = searchResults[indexPath.row]
+            self.present(detailVC, animated: true, completion: nil)
+        }
     }
     
     
@@ -87,6 +104,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+
+// MARK: - Search Results Updating
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         fetchSearchWord(searchController.searchBar.text!)
@@ -120,16 +139,7 @@ extension SearchViewController: UISearchResultsUpdating {
                  
             }
             
-            //database = self.db.read()
-            
         }
-            //initialize cocktail object with data FROM DATABASE, not from JSON
-            
-            //update array of search results
-        
-            
-            
-            //update data for presentation
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

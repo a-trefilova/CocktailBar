@@ -142,7 +142,6 @@ class DBHelper {
                                             ingridient5: ingridient5,
                                             ingridient6: ingridient6,
                                             ingridient7: ingridient7))
-                //print("Query result: \(drinkId), \(drinkName)")
             
         }
         sqlite3_finalize(queryStatement)
@@ -191,7 +190,6 @@ class DBHelper {
                                             ingridient5: ingridient5,
                                             ingridient6: ingridient6,
                                             ingridient7: ingridient7))
-                //print("Query result: \(drinkId), \(drinkName)")
             
         }
         sqlite3_finalize(queryStatement)
@@ -244,9 +242,7 @@ class DBHelper {
                                             ingridient4: ingridient4,
                                             ingridient5: ingridient5,
                                             ingridient6: ingridient6,
-                                            ingridient7: ingridient7)
-                print("Query result: \(drinkId), \(fav)")
-            
+                                            ingridient7: ingridient7)            
         }
         sqlite3_finalize(queryStatement)
         return (psns, fav)

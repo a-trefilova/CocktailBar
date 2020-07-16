@@ -8,25 +8,8 @@
 
 import UIKit
 
-
-
 class DataProvider {
     var nm = CocktailNetworkManager()
-    
-   
-//    public  func getModel(with ingridient: String) -> CollectionModel {
-//        var model: CollectionModel!
-//        var modelArray: [CurrentCocktail] = []
-//        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(ingridient)"
-//        nm.fetchCurrentCocktail(url: urlString) {  cocktails in
-//            print(cocktails.count)
-//            modelArray = cocktails
-//
-//        }
-//        model = CollectionModel(name: ingridient, emoji: "", arrayOfCocktail: modelArray)
-//        print("Model by \(ingridient) and  number of items in array \(modelArray.count)")
-//        return model
-//    }
     
     public  func getModel(with ingridient: String, completion: @escaping (CollectionModel) -> Void) {
         var model: CollectionModel!

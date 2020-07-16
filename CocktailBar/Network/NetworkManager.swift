@@ -8,110 +8,62 @@
 
 import UIKit
 
-struct CurrentDrinksData: Codable {
-    
-    let drinks: [Drink]
-    
-}
-
-struct Drink: Codable {
-    let idDrink : String
-    let strDrink : String
-    let strTags : String
-    let strCategory : String
-    let strAlcoholic : String
-    let strGlass : String
-    let strInstructions : String
-    let strDrinkThumb : String  //this is image url
-//    let strIngredient1 : String?
-//    let strIngredient2 : String?
-//    let strIngredient3 : String?
-//    let strIngredient4 : String?
-//    let strIngredient5 : String?
-//    let strIngredient6 : String?
-//    let strIngredient7 : String?
-//    let strIngredient8 : String?
-//    let strIngredient9 : String?
-//    let strIngredient10 : String?
-   
-    
-
-}
-
-
-
-
 class CocktailNetworkManager {
-static var cocktailsArray: [CurrentCocktail]!
-
-var onCompletion: ((CurrentCocktail) -> Void)!
-//var cocktailsDictionary = NSDictionary()
-var anyCocktail = [String: Any?]()
-func fetchCurrentCocktail(url: String, completion: @escaping (_ cocktails: [CurrentCocktail])->())  {
-    guard let url = URL(string: url) else { return }
-    URLSession.shared.dataTask(with: url) { (data, response, error) in
-        if let data = data {
-            
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
-                    if let drinksContainer = json["drinks"] as? (NSArray) {
-                        
-                        var cocktailsDictionary = NSDictionary()
-                        var cocktailArray = [CurrentCocktail]()
-                        for drinks in drinksContainer {
+    
+    static var cocktailsArray: [CurrentCocktail]!
+    var onCompletion: ((CurrentCocktail) -> Void)!
+    var anyCocktail = [String: Any?]()
+    
+    func fetchCurrentCocktail(url: String, completion: @escaping (_ cocktails: [CurrentCocktail])->())  {
+        guard let url = URL(string: url) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                        if let drinksContainer = json["drinks"] as? (NSArray) {
                             
-                            cocktailsDictionary = drinks as! NSDictionary
-                            
-                            let cocktails = CurrentCocktail(drinkId: cocktailsDictionary["idDrink"] as! String,
-                                                           drinkName: cocktailsDictionary["strDrink"] as! String,
-                                                           category: cocktailsDictionary["strCategory"] as! String,
-                                                           isAlco: cocktailsDictionary["strAlcoholic"] as! String,
-                                                           glasses: cocktailsDictionary["strGlass"] as! String,
-                                                           instructions: cocktailsDictionary["strInstructions"] as! String,
-                                                           imageUrl: cocktailsDictionary["strDrinkThumb"] as! String,
-                                                           ingridient1: cocktailsDictionary["strIngredient1"] as? String,
-                                                           ingridient2: cocktailsDictionary["strIngredient2"] as? String,
-                                                           ingridient3: cocktailsDictionary["strIngredient3"] as? String,
-                                                           ingridient4: cocktailsDictionary["strIngredient4"] as? String,
-                                                           ingridient5: cocktailsDictionary["strIngredient5"] as? String,
-                                                           ingridient6: cocktailsDictionary["strIngredient6"] as? String,
-                                                           ingridient7: cocktailsDictionary["strIngredient7"] as? String
-                                                           )
-                            
-                            cocktailArray.append(cocktails)
-                            
-                            
-                            
+                            var cocktailsDictionary = NSDictionary()
+                            var cocktailArray = [CurrentCocktail]()
+                            for drinks in drinksContainer {
+                                
+                                cocktailsDictionary = drinks as! NSDictionary
+                                
+                                let cocktails = CurrentCocktail(drinkId: cocktailsDictionary["idDrink"] as! String,
+                                                               drinkName: cocktailsDictionary["strDrink"] as! String,
+                                                               category: cocktailsDictionary["strCategory"] as! String,
+                                                               isAlco: cocktailsDictionary["strAlcoholic"] as! String,
+                                                               glasses: cocktailsDictionary["strGlass"] as! String,
+                                                               instructions: cocktailsDictionary["strInstructions"] as! String,
+                                                               imageUrl: cocktailsDictionary["strDrinkThumb"] as! String,
+                                                               ingridient1: cocktailsDictionary["strIngredient1"] as? String,
+                                                               ingridient2: cocktailsDictionary["strIngredient2"] as? String,
+                                                               ingridient3: cocktailsDictionary["strIngredient3"] as? String,
+                                                               ingridient4: cocktailsDictionary["strIngredient4"] as? String,
+                                                               ingridient5: cocktailsDictionary["strIngredient5"] as? String,
+                                                               ingridient6: cocktailsDictionary["strIngredient6"] as? String,
+                                                               ingridient7: cocktailsDictionary["strIngredient7"] as? String
+                                                               )
+                                
+                                cocktailArray.append(cocktails)
+                                
+                                
+                                
+                            }
+                           completion(cocktailArray)
                         }
-                        //print(cocktailArray)
-                       completion(cocktailArray)
                     }
+                } catch {
+                    
                 }
-            } catch {
                 
             }
-            
-        }
 
-    }.resume()
+        }.resume()
 
-}
-
-
-}
-
-class PictureManager {
-    static func downloadImage(url: String, completion: @escaping (_ data: Data)->()) {
-        
-        guard let url = URL(string: url) else { return }
-        
-        let session = URLSession.shared
-        session.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(data)
-                }
-            }
-        } .resume()
     }
-}
+
+
+    }
+
+    

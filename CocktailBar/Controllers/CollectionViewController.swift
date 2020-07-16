@@ -8,12 +8,19 @@
 
 import UIKit
 
-class _CollectionViewController: UIViewController {
+class CollectionViewController: UIViewController {
 
+// MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
+    
+// MARK: - Public Properties
+    var arrayToPresent: [CollectionModel] = [CollectionModel]()
     var ingridients = ["gin", "rum", "vine", "beer"]
     lazy var datasource = DataProvider()
-    var arrayToPresent: [CollectionModel] = [CollectionModel]()
+    
+    
+// MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -29,8 +36,8 @@ class _CollectionViewController: UIViewController {
         
     }
   
-    
-    func prepareCollectionVC() {
+// MARK: - Private Methods
+   private func prepareCollectionVC() {
         for item in ingridients {
              DataProvider().getModel(with: item) { model in
                 self.arrayToPresent.append(model)
@@ -38,7 +45,6 @@ class _CollectionViewController: UIViewController {
                     self.collectionView.reloadData()
                 }
             }
-            
         }
     }
   
@@ -51,14 +57,13 @@ class _CollectionViewController: UIViewController {
         let heightOfCell = height - 300
         
         return CGSize(width: widthOfCell, height: heightOfCell)
-        
     }
-   
-    
     
 }
 
-extension _CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+
+// MARK: - Collection View Data Source & Delegate 
+extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

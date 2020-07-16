@@ -9,7 +9,8 @@
 import UIKit
 
 class SearchViewCell: UITableViewCell {
-
+    
+// MARK: - IBOutlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var cardView: UIView!
     @IBOutlet var cocktailImage: UIImageView! {
@@ -28,27 +29,15 @@ class SearchViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var isAlcoholLabel: UILabel!
     
-        
+// MARK: - Public Properties
     static let reuseId = "SearchCell"
     static let cellHeight: CGFloat = 200
     
     
-    
+// MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        backgroundColor = .clear
-        selectionStyle = .none
-        
-        cocktailImage.layer.cornerRadius = cocktailImage.frame.width / 2
-        cocktailImage.clipsToBounds = true
-        
-        cardView.layer.cornerRadius = 5
-        cardView.clipsToBounds = true
-        
-        
-        
-        // Initialization code
+        setUpCell()
     }
     
     override func prepareForReuse() {
@@ -57,11 +46,10 @@ class SearchViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
 
-    
+ 
+// MARK: - Public Methods
     func setData(with properties: CurrentCocktail) {
         PictureManager.downloadImage(url: properties.imageUrl) { (data) in
             guard !data.isEmpty else { return }
@@ -74,5 +62,17 @@ class SearchViewCell: UITableViewCell {
         categoryLabel.text = properties.category
         isAlcoholLabel.text = properties.isAlco
         
+    }
+    
+// MARK: - Private Methods
+    private func setUpCell() {
+        backgroundColor = .clear
+        selectionStyle = .none
+        
+        cocktailImage.layer.cornerRadius = cocktailImage.frame.width / 2
+        cocktailImage.clipsToBounds = true
+        
+        cardView.layer.cornerRadius = 5
+        cardView.clipsToBounds = true
     }
 }

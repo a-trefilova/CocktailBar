@@ -9,17 +9,20 @@
 import UIKit
 
 class FavouritesViewController: UIViewController {
-    var arrayToReuse: [CurrentCocktail] = [CurrentCocktail]()
     
+// MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
+
     
+// MARK: - Public Properties
     var db: DBHelper = DBHelper()
+    var arrayToReuse: [CurrentCocktail] = [CurrentCocktail]()
+
     
+// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +33,9 @@ class FavouritesViewController: UIViewController {
     
 }
 
+
+
+// MARK: - Table View Data Source & Delegate 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
