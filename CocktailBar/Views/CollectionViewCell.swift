@@ -14,9 +14,10 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var collectionLabel: UILabel!
-    
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
 // MARK: - Public Properties
+    
     static let reuseId = "CollectionCell"
  
 // MARK: - Lifecycle
@@ -33,6 +34,8 @@ class CollectionViewCell: UICollectionViewCell {
         cellView.layer.cornerRadius = 10
         gradientView.clipsToBounds = true
         cellView.clipsToBounds = true
+        backgroundImageView.layer.cornerRadius = 10
+        backgroundImageView.clipsToBounds = true 
         collectionLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 }

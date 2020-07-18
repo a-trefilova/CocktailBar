@@ -15,7 +15,18 @@ class CollectionViewController: UIViewController {
     
 // MARK: - Public Properties
     var arrayToPresent: [CollectionModel] = [CollectionModel]()
-    var ingridients = ["gin", "rum", "vine", "beer"]
+    var ingridients = ["gin"]
+    var allIngridientsForRandomize = ["gin",
+                                      "rum",
+                                      "vine",
+                                      "beer",
+                                      "tequila",
+                                      "vodka",
+                                      "aperol",
+                                      "sambuca",
+                                      "lemon",
+                                      "grenadine",
+                                      "soda"]
     lazy var datasource = DataProvider()
     
     
@@ -32,6 +43,7 @@ class CollectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fillArrayWithRandomIngridients()
         prepareCollectionVC()
         
     }
@@ -59,6 +71,16 @@ class CollectionViewController: UIViewController {
         return CGSize(width: widthOfCell, height: heightOfCell)
     }
     
+    private func fillArrayWithRandomIngridients() {
+        ingridients = []
+        for _ in 0...5 {
+            guard let element = allIngridientsForRandomize.randomElement() else { return }
+            if !ingridients.contains(element) {
+                ingridients.append(element)
+            }
+        }
+    }
+    
 }
 
 
@@ -80,9 +102,13 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let text = item.name
         print(item)
         
-        cell.collectionLabel?.text = "Cocktails with \(text)" 
-        
-        
+        cell.collectionLabel?.text = "Cocktails with \(text)"
+        if let imageUrl = item.arrayOfCocktail.first?.imageUrl {
+            PictureManager.downloadImage(url: imageUrl ) { data in
+                cell.backgroundImageView.image = UIImage(data: data)
+                cell.gradientView.isHidden = true 
+            }
+        }
         
         return cell
 
