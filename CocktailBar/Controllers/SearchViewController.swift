@@ -21,6 +21,7 @@ class SearchViewController: UIViewController{
     var networkManager = CocktailNetworkManager()
     var db: DBHelper = DBHelper()
     var searchResults: [CurrentCocktail]?
+    
 // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
     

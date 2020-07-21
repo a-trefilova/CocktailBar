@@ -42,17 +42,15 @@ class CollectionViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
-        
+       
         pageControl.hidesForSinglePage = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fillArrayWithRandomIngridients()
-        prepareCollectionVC()
-        //pageControl.numberOfPages = arrayToPresent.count
-        
     }
+    
   
 // MARK: - Private Methods
    private func prepareCollectionVC() {
@@ -78,13 +76,16 @@ class CollectionViewController: UIViewController {
     }
     
     private func fillArrayWithRandomIngridients() {
+        arrayToPresent = []
         ingridients = []
+        pageControl.numberOfPages = 0
         for _ in 0...5 {
             guard let element = allIngridientsForRandomize.randomElement() else { return }
             if !ingridients.contains(element) {
                 ingridients.append(element)
             }
         }
+        prepareCollectionVC()
     }
     
 }
