@@ -8,6 +8,6 @@
 
 import Foundation
 
-var searchResults = [CurrentCocktail]()
+
 var database = [CurrentCocktail]()
 var lovelyCocktails = [CurrentCocktail]()
