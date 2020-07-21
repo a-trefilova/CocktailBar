@@ -69,6 +69,9 @@ class DetailViewController: UIViewController {
                
         instructionLabel.layer.cornerRadius = 5
         instructionLabel.clipsToBounds = true
+        
+        likeButtonOutlet.layer.cornerRadius = 5
+        likeButtonOutlet.clipsToBounds = true 
     }
     
     private func fillOutletsWithData() {
