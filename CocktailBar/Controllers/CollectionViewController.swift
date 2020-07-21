@@ -12,13 +12,28 @@ class CollectionViewController: UIViewController {
 
 // MARK: - IBOutlets
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
 // MARK: - Public Properties
     var arrayToPresent: [CollectionModel] = [CollectionModel]()
-    var ingridients = ["gin", "rum", "vine", "beer"]
+    var ingridients = ["gin"]
+    var allIngridientsForRandomize = ["gin",
+                                      "rum",
+                                      "vine",
+                                      "beer",
+                                      "tequila",
+                                      "vodka",
+                                      "aperol",
+                                      "sambuca",
+                                      "lemon",
+                                      "grenadine",
+                                      "soda"]
     lazy var datasource = DataProvider()
     
     
+// MARK: - Private Properties
+    private var numberOfSections: Int = 1
+    private var lineSpacing: CGFloat = 100
 // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -28,11 +43,14 @@ class CollectionViewController: UIViewController {
         
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
         
+        pageControl.hidesForSinglePage = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fillArrayWithRandomIngridients()
         prepareCollectionVC()
+        //pageControl.numberOfPages = arrayToPresent.count
         
     }
   
@@ -59,17 +77,29 @@ class CollectionViewController: UIViewController {
         return CGSize(width: widthOfCell, height: heightOfCell)
     }
     
+    private func fillArrayWithRandomIngridients() {
+        ingridients = []
+        for _ in 0...5 {
+            guard let element = allIngridientsForRandomize.randomElement() else { return }
+            if !ingridients.contains(element) {
+                ingridients.append(element)
+            }
+        }
+    }
+    
 }
 
 
 // MARK: - Collection View Data Source & Delegate 
 extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        arrayToPresent.count
+        pageControl.numberOfPages = arrayToPresent.count
+        return arrayToPresent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -80,9 +110,13 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let text = item.name
         print(item)
         
-        cell.collectionLabel?.text = "Cocktails with \(text)" 
-        
-        
+        cell.collectionLabel?.text = "Cocktails with \(text)"
+        if let imageUrl = item.arrayOfCocktail.first?.imageUrl {
+            PictureManager.downloadImage(url: imageUrl ) { data in
+                cell.backgroundImageView.image = UIImage(data: data)
+                cell.gradientView.isHidden = true 
+            }
+        }
         
         return cell
 
@@ -90,20 +124,26 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         return calculateSizeOfCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return lineSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
-        
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tableVC = storyboard.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
         tableVC.arrayToReuse = arrayToPresent[indexPath.item].arrayOfCocktail
         self.present(tableVC, animated: true)
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = scrollView.contentOffset.x / scrollView.frame.width
+        pageControl.currentPage = Int(pageNumber)
+    }
 }
 
 

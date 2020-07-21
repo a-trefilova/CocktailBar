@@ -84,17 +84,14 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         if searchResults.count == 0 {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
             detailVC.item = database[indexPath.row]
-            self.present(detailVC, animated: true, completion: nil)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
             detailVC.item = searchResults[indexPath.row]
-            self.present(detailVC, animated: true, completion: nil)
         }
+        self.present(detailVC, animated: true, completion: nil)
     }
     
     

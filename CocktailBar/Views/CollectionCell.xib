@@ -28,6 +28,9 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H3O-jI-scQ">
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-yS-dmS" userLabel="CellView">
                         <rect key="frame" x="0.0" y="0.0" width="356" height="315"/>
                         <subviews>
@@ -48,9 +51,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="XjZ-yS-dmS" firstAttribute="leading" secondItem="51N-iU-Lxz" secondAttribute="leading" id="1is-f0-QQ8"/>
+                    <constraint firstAttribute="bottom" secondItem="H3O-jI-scQ" secondAttribute="bottom" id="1yA-fW-hPk"/>
+                    <constraint firstItem="H3O-jI-scQ" firstAttribute="leading" secondItem="51N-iU-Lxz" secondAttribute="leading" id="6k7-wU-Grr"/>
                     <constraint firstItem="9sD-KS-fQs" firstAttribute="leading" secondItem="51N-iU-Lxz" secondAttribute="leading" id="7pp-a1-wGn"/>
+                    <constraint firstAttribute="trailing" secondItem="H3O-jI-scQ" secondAttribute="trailing" id="9d8-wE-jiG"/>
                     <constraint firstAttribute="bottom" secondItem="XjZ-yS-dmS" secondAttribute="bottom" id="I2j-Aj-WQU"/>
                     <constraint firstItem="XjZ-yS-dmS" firstAttribute="top" secondItem="51N-iU-Lxz" secondAttribute="top" id="KCA-JW-f4k"/>
+                    <constraint firstItem="H3O-jI-scQ" firstAttribute="top" secondItem="51N-iU-Lxz" secondAttribute="top" id="Q26-C8-Gmz"/>
                     <constraint firstAttribute="trailing" secondItem="XjZ-yS-dmS" secondAttribute="trailing" id="QFg-4y-e9Q"/>
                     <constraint firstAttribute="bottom" secondItem="9sD-KS-fQs" secondAttribute="bottom" id="X5T-3A-aHi"/>
                     <constraint firstItem="9sD-KS-fQs" firstAttribute="top" secondItem="51N-iU-Lxz" secondAttribute="top" id="bvp-JG-82f"/>
@@ -59,6 +66,7 @@
             </collectionViewCellContentView>
             <size key="customSize" width="356" height="315"/>
             <connections>
+                <outlet property="backgroundImageView" destination="H3O-jI-scQ" id="pgK-Z5-z9X"/>
                 <outlet property="cellView" destination="XjZ-yS-dmS" id="yhX-PQ-WJC"/>
                 <outlet property="collectionLabel" destination="nS6-7K-oPU" id="aRI-Xf-UWA"/>
                 <outlet property="gradientView" destination="9sD-KS-fQs" id="oga-dn-jWf"/>

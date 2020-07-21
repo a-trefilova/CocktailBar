@@ -18,6 +18,8 @@ class FavouritesViewController: UIViewController {
     var db: DBHelper = DBHelper()
     var arrayToReuse: [CurrentCocktail] = [CurrentCocktail]()
 
+// MARK: - Private Properties
+    private var numberOfSections: Int = 1
     
 // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -38,7 +40,7 @@ class FavouritesViewController: UIViewController {
 // MARK: - Table View Data Source & Delegate 
 extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,15 +52,13 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
         if arrayToReuse.count == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
             cell.setData(with: lovelyCocktails[indexPath.row])
-            return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
             cell.setData(with: arrayToReuse[indexPath.row])
-            return cell
         }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -67,17 +67,14 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         if arrayToReuse.count == 0 {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
             detailVC.item = lovelyCocktails[indexPath.row]
-            self.present(detailVC, animated: true, completion: nil)
         } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
             detailVC.item = arrayToReuse[indexPath.row]
-            self.present(detailVC, animated: true, completion: nil)
         }
+        self.present(detailVC, animated: true, completion: nil)
     }
     
 }
