@@ -51,14 +51,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wQG-fw-enJ">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wQG-fw-enJ">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.34353165400000002" green="0.4429664586" blue="0.59731217619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="50" id="gQN-GA-fd0">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="gQN-GA-fd0">
                                     <size key="itemSize" width="414" height="132"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
@@ -66,19 +66,25 @@
                                     <outlet property="delegate" destination="Xcq-LL-GsD" id="5q0-Wk-fbd"/>
                                 </connections>
                             </collectionView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="a3T-gz-AZS">
+                                <rect key="frame" x="187.5" y="766" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="a3T-gz-AZS" firstAttribute="centerX" secondItem="LmJ-mj-PAV" secondAttribute="centerX" id="K7i-mt-8up"/>
                             <constraint firstItem="wQG-fw-enJ" firstAttribute="bottom" secondItem="fN0-vf-LA6" secondAttribute="bottom" id="O9b-du-lJD"/>
                             <constraint firstItem="wQG-fw-enJ" firstAttribute="leading" secondItem="fN0-vf-LA6" secondAttribute="leading" id="SKG-OB-6tU"/>
                             <constraint firstItem="wQG-fw-enJ" firstAttribute="top" secondItem="fN0-vf-LA6" secondAttribute="top" id="Y73-tj-8kq"/>
                             <constraint firstItem="wQG-fw-enJ" firstAttribute="trailing" secondItem="fN0-vf-LA6" secondAttribute="trailing" id="ZVm-Gn-m5V"/>
+                            <constraint firstItem="fN0-vf-LA6" firstAttribute="bottom" secondItem="a3T-gz-AZS" secondAttribute="bottom" constant="10" id="cys-R2-SnU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fN0-vf-LA6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" id="GCE-DF-qNb"/>
                     <connections>
                         <outlet property="collectionView" destination="wQG-fw-enJ" id="HWs-TL-cgm"/>
+                        <outlet property="pageControl" destination="a3T-gz-AZS" id="XXa-ni-9nJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3da-oG-XDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
