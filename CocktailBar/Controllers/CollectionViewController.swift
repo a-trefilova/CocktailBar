@@ -56,10 +56,10 @@ class CollectionViewController: UIViewController {
 // MARK: - Private Methods
    private func prepareCollectionVC() {
         for item in ingridients {
-             DataProvider().getModel(with: item) { model in
-                self.arrayToPresent.append(model)
+             DataProvider().getModel(with: item) {[weak self] model in
+                self?.arrayToPresent.append(model)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
             }
         }

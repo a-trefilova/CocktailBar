@@ -114,7 +114,7 @@ extension SearchViewController: UISearchResultsUpdating {
 
     private func fetchSearchWord(_ searchText: String) {
        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(searchText)"
-        networkManager.fetchCurrentCocktail(url: urlString) { (cocktails) in
+        networkManager.fetchCurrentCocktail(url: urlString) { [unowned self] (cocktails) in
             self.searchResults = cocktails
             
             //adding cocktails in database
