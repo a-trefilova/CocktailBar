@@ -34,6 +34,7 @@ class CollectionViewController: UIViewController {
 // MARK: - Private Properties
     private var numberOfSections: Int = 1
     private var lineSpacing: CGFloat = 100
+    
 // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -42,8 +43,8 @@ class CollectionViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
+        setUpPageControl()
        
-        pageControl.hidesForSinglePage = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +87,12 @@ class CollectionViewController: UIViewController {
             }
         }
         prepareCollectionVC()
+    }
+    
+    private func setUpPageControl() {
+        pageControl.hidesForSinglePage = true
+        pageControl.pageIndicatorTintColor = .gray
+        pageControl.currentPageIndicatorTintColor = .white
     }
     
 }
