@@ -72,6 +72,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1272A01724C9AB4100B21B0B /* ScreenShots */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ScreenShots;
+			sourceTree = "<group>";
+		};
 		12E12F6A24A7951300183DD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +144,7 @@
 		12EE36FB2485870400E95779 /* CocktailBar */ = {
 			isa = PBXGroup;
 			children = (
+				1272A01724C9AB4100B21B0B /* ScreenShots */,
 				12E12F6D24A7954C00183DD0 /* Models */,
 				12E12F6C24A7954100183DD0 /* Network */,
 				12E12F6B24A7952F00183DD0 /* Controllers */,
