@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var ingridient6Label: UILabel!
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var likeButtonOutlet: UIButton!
+    @IBOutlet weak var ingridientsBackgroundView: UIView!
     
 // MARK: - Public Properties
     var favVC = FavouritesViewController()
@@ -64,6 +65,8 @@ class DetailViewController: UIViewController {
         cocktailImage.layer.cornerRadius = 10
         cocktailImage.clipsToBounds = true
                
+        transparencyGradient()
+        
         categoryLabel.layer.cornerRadius = 10
         categoryLabel.clipsToBounds = true
                
@@ -71,7 +74,21 @@ class DetailViewController: UIViewController {
         instructionLabel.clipsToBounds = true
         
         likeButtonOutlet.layer.cornerRadius = 5
-        likeButtonOutlet.clipsToBounds = true 
+        likeButtonOutlet.clipsToBounds = true
+        
+        ingridientsBackgroundView.layer.cornerRadius = 10
+        ingridientsBackgroundView.clipsToBounds = true
+        ingridientsBackgroundView.layer.shadowRadius = 0.5
+        ingridientsBackgroundView.layer.shadowOpacity = 0.5
+    }
+    
+    private func transparencyGradient() {
+        let maskLayer = CAGradientLayer(layer: cocktailImage.layer)
+        maskLayer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+        maskLayer.startPoint = CGPoint(x: 0, y: 0.7)
+        maskLayer.endPoint = CGPoint(x: 0, y: 0)
+        maskLayer.frame = cocktailImage.bounds
+        cocktailImage.layer.mask = maskLayer
     }
     
     private func fillOutletsWithData() {

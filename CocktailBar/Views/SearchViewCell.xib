@@ -15,6 +15,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="225"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srL-0m-Bga" customClass="GradientView" customModule="CocktailBar" customModuleProvider="target">
+                        <rect key="frame" x="15" y="10" width="450" height="205"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spE-9R-Xcx" userLabel="CardView">
                         <rect key="frame" x="15" y="10" width="450" height="205"/>
                         <subviews>
@@ -51,7 +63,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.34353165404080599" green="0.44296645862163231" blue="0.59731217616580312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b8F-Xd-I6X" firstAttribute="leading" secondItem="spE-9R-Xcx" secondAttribute="leading" constant="28" id="4Id-z6-Fak"/>
                             <constraint firstItem="UxE-08-lPf" firstAttribute="leading" secondItem="b8F-Xd-I6X" secondAttribute="trailing" constant="10" id="6r2-Cc-jdS"/>
@@ -74,9 +85,13 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="srL-0m-Bga" secondAttribute="trailing" constant="15" id="4W7-XP-H0c"/>
+                    <constraint firstItem="srL-0m-Bga" firstAttribute="leading" secondItem="40y-Pg-Y7s" secondAttribute="leading" constant="15" id="ARx-I9-HD4"/>
                     <constraint firstAttribute="trailing" secondItem="spE-9R-Xcx" secondAttribute="trailing" constant="15" id="B4S-Q4-NMF"/>
                     <constraint firstItem="spE-9R-Xcx" firstAttribute="leading" secondItem="40y-Pg-Y7s" secondAttribute="leading" constant="15" id="XNN-Tc-Dei"/>
                     <constraint firstAttribute="bottom" secondItem="spE-9R-Xcx" secondAttribute="bottom" constant="10" id="Xzr-KJ-frq"/>
+                    <constraint firstAttribute="bottom" secondItem="srL-0m-Bga" secondAttribute="bottom" constant="10" id="jTm-oz-QvA"/>
+                    <constraint firstItem="srL-0m-Bga" firstAttribute="top" secondItem="40y-Pg-Y7s" secondAttribute="top" constant="10" id="sr4-9q-KBW"/>
                     <constraint firstItem="spE-9R-Xcx" firstAttribute="top" secondItem="40y-Pg-Y7s" secondAttribute="top" constant="10" id="yZi-HK-MlM"/>
                 </constraints>
             </tableViewCellContentView>
@@ -86,6 +101,7 @@
                 <outlet property="categoryLabel" destination="vaf-Xz-gmn" id="5Nz-2c-TfN"/>
                 <outlet property="cocktailImage" destination="UxE-08-lPf" id="gHp-5S-WOc"/>
                 <outlet property="drinkNameLabel" destination="b8F-Xd-I6X" id="g64-5E-fpi"/>
+                <outlet property="gradientBackgroundView" destination="srL-0m-Bga" id="6Uv-3I-kvg"/>
                 <outlet property="isAlcoholLabel" destination="HYO-D6-nfP" id="a61-iG-tbS"/>
             </connections>
             <point key="canvasLocation" x="13.043478260869566" y="55.245535714285715"/>

@@ -20,6 +20,7 @@ class SearchViewController: UIViewController{
     var collections = [CollectionModel]()
     var networkManager = CocktailNetworkManager()
     var db: DBHelper = DBHelper()
+    var searchResults: [CurrentCocktail]?
     
 // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
@@ -59,23 +60,23 @@ class SearchViewController: UIViewController{
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchResults.count == 0 {
-            return database.count
-        } else {
-            return searchResults.count
-        }
+                    
+        return searchResults?.count ?? database.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
-        if searchResults.count == 0 {
+       
+        guard let data = searchResults?[indexPath.row] else {
             cell.setData(with: database[indexPath.row])
             return cell
-        } else {
-            cell.setData(with: searchResults[indexPath.row])
-            return cell
         }
+        cell.setData(with: data )
+        return cell
+            
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,11 +87,13 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        if searchResults.count == 0 {
+        
+        guard let item = searchResults?[indexPath.row] else {
             detailVC.item = database[indexPath.row]
-        } else {
-            detailVC.item = searchResults[indexPath.row]
+            self.present(detailVC, animated: true, completion: nil)
+            return
         }
+        detailVC.item = item
         self.present(detailVC, animated: true, completion: nil)
     }
     
@@ -104,6 +107,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - Search Results Updating
 extension SearchViewController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         fetchSearchWord(searchController.searchBar.text!)
     }
@@ -111,11 +115,10 @@ extension SearchViewController: UISearchResultsUpdating {
     private func fetchSearchWord(_ searchText: String) {
        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(searchText)"
         networkManager.fetchCurrentCocktail(url: urlString) { (cocktails) in
-            searchResults = cocktails
+            self.searchResults = cocktails
             
             //adding cocktails in database
             for item in cocktails {
-                
                 self.db.insert(drinkId: item.drinkId,
                           drinkName: item.drinkName,
                           category: item.category,
@@ -132,16 +135,12 @@ extension SearchViewController: UISearchResultsUpdating {
                           ingridient7: self.prepareOptionalValues(string: item.ingridient7),
                           isFavourite: false)
                 
-                
-                 
             }
             
-        }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        
-        
+        }
     }
     
     private func prepareOptionalValues(string: String?) -> String {

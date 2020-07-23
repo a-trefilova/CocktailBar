@@ -28,6 +28,7 @@ class SearchViewCell: UITableViewCell {
     @IBOutlet weak var drinkNameLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var isAlcoholLabel: UILabel!
+    @IBOutlet weak var gradientBackgroundView: GradientView!
     
 // MARK: - Public Properties
     static let reuseId = "SearchCell"
@@ -74,5 +75,8 @@ class SearchViewCell: UITableViewCell {
         
         cardView.layer.cornerRadius = 5
         cardView.clipsToBounds = true
+        
+        gradientBackgroundView.layer.cornerRadius = 5
+        gradientBackgroundView.clipsToBounds = true 
     }
 }

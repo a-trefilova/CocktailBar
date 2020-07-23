@@ -34,6 +34,7 @@ class CollectionViewController: UIViewController {
 // MARK: - Private Properties
     private var numberOfSections: Int = 1
     private var lineSpacing: CGFloat = 100
+    
 // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -42,17 +43,15 @@ class CollectionViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
-        
-        pageControl.hidesForSinglePage = true
+        setUpPageControl()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fillArrayWithRandomIngridients()
-        prepareCollectionVC()
-        //pageControl.numberOfPages = arrayToPresent.count
-        
     }
+    
   
 // MARK: - Private Methods
    private func prepareCollectionVC() {
@@ -78,13 +77,22 @@ class CollectionViewController: UIViewController {
     }
     
     private func fillArrayWithRandomIngridients() {
+        arrayToPresent = []
         ingridients = []
+        pageControl.numberOfPages = 0
         for _ in 0...5 {
             guard let element = allIngridientsForRandomize.randomElement() else { return }
             if !ingridients.contains(element) {
                 ingridients.append(element)
             }
         }
+        prepareCollectionVC()
+    }
+    
+    private func setUpPageControl() {
+        pageControl.hidesForSinglePage = true
+        pageControl.pageIndicatorTintColor = .gray
+        pageControl.currentPageIndicatorTintColor = .white
     }
     
 }
