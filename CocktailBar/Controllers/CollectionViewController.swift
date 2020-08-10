@@ -45,9 +45,11 @@ class CollectionViewController: UIViewController {
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
         setUpPageControl()
         fillArrayWithRandomIngridients()
+        
+        
     }
     
-  
+ 
 // MARK: - Private Methods
    private func prepareCollectionVC() {
         for item in ingridients {

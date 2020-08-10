@@ -77,4 +77,22 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(detailVC, animated: true, completion: nil)
     }
     
+     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if arrayToReuse.count == 0 {
+           return .delete
+        }
+        return .none
+       }
+       
+       
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete && arrayToReuse.count == 0{
+            db.updateFavouritesByDrinkId(drinkId: lovelyCocktails[indexPath.row].drinkId, bool: false)
+            lovelyCocktails.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+           }
+       }
+    
+   
+    
 }

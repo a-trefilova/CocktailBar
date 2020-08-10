@@ -7,4 +7,7 @@ target 'CocktailBar' do
 
   # Pods for CocktailBar
 	pod 'SQLite.swift', '~> 0.12.0'
+
+	pod 'Firebase/Crashlytics'
+	pod 'Firebase/Analytics'
 end
