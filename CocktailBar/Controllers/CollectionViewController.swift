@@ -44,11 +44,6 @@ class CollectionViewController: UIViewController {
         
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
         setUpPageControl()
-       
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         fillArrayWithRandomIngridients()
     }
     
@@ -98,7 +93,7 @@ class CollectionViewController: UIViewController {
 }
 
 
-// MARK: - Collection View Data Source & Delegate 
+// MARK: - Collection View Data Source & Delegate & Flowlayout
 extension CollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -145,7 +140,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tableVC = storyboard.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
         tableVC.arrayToReuse = arrayToPresent[indexPath.item].arrayOfCocktail
-        self.present(tableVC, animated: true)
+        self.navigationController?.pushViewController(tableVC, animated: true)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
