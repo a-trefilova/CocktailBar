@@ -29,6 +29,7 @@ class SearchViewController: UIViewController{
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
         
@@ -41,17 +42,15 @@ class SearchViewController: UIViewController{
         print(database.count)
     }
     
-    
 // MARK: - Private Methods
    private func setUpSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
-        
         definesPresentationContext = true
     }
-
+    
 }
 
 
@@ -108,13 +107,18 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Search Results Updating
 extension SearchViewController: UISearchResultsUpdating {
     
+    //cancel
+    
     func updateSearchResults(for searchController: UISearchController) {
         fetchSearchWord(searchController.searchBar.text!)
     }
 
     private func fetchSearchWord(_ searchText: String) {
+        //searchText.replacingCharacters(in: " ", with: "_")
+        let searchText = searchText.replaceWhiteSpaceWithUnderline()
        let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(searchText)"
-        networkManager.fetchCurrentCocktail(url: urlString) { (cocktails) in
+        networkManager.fetchCurrentCocktail(url: urlString) { [unowned self] (cocktails) in
+            
             self.searchResults = cocktails
             
             //adding cocktails in database
@@ -154,8 +158,28 @@ extension SearchViewController: UISearchResultsUpdating {
 }
 
 
+extension SearchViewController: UIScrollViewDelegate {
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.isActive = false
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        searchController.isActive = true
+    }
     
+    
+}
 
 
 
 
+extension String {
+    func replace(string:String, replacement:String) -> String {
+        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
+    }
+
+    func replaceWhiteSpaceWithUnderline() -> String {
+        return self.replace(string: " ", replacement: "_")
+    }
+}
