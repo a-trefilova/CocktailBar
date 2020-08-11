@@ -10,4 +10,8 @@ target 'CocktailBar' do
 
 	pod 'Firebase/Crashlytics'
 	pod 'Firebase/Analytics'
+	pod 'Firebase/Firestore'
+
+# Optionally, include the Swift extensions if you're using Swift.
+	pod 'FirebaseFirestoreSwift'
 end

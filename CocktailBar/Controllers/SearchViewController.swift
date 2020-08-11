@@ -33,6 +33,14 @@ class SearchViewController: UIViewController{
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
         
+//        DispatchQueue.global(qos: .background).async {
+//            let cfh = CloudFirestoreHelper()
+//            cfh.getData()
+//
+//            DispatchQueue.main.async {
+//                print("data is loaded to firebase")
+//            }
+//        }
     }
     
     

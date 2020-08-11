@@ -111,7 +111,7 @@ class DetailViewController: UIViewController {
     
  // MARK: - IBActions
      @IBAction func likeButtonTapped(_ sender: UIButton) {
-        fatalError()
+        //fatalError()
          print("LikeButtonTapped")
          check = !check
          
