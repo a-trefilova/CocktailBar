@@ -113,7 +113,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
             return UICollectionViewCell()}
         let item = arrayToPresent[indexPath.item]
         let text = item.name
-        print(item)
+        //print(item)
         
         cell.collectionLabel?.text = "Cocktails with \(text)"
         if let imageUrl = item.arrayOfCocktail.first?.imageUrl {

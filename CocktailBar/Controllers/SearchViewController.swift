@@ -19,17 +19,24 @@ class SearchViewController: UIViewController{
  // MARK: - Public Properties
     var collections = [CollectionModel]()
     var networkManager = CocktailNetworkManager()
-    var db: DBHelper = DBHelper()
-    var searchResults: [CurrentCocktail]?
+    //var db: DBHelper = DBHelper()
+    var searchResults = [CurrentCocktail]()
     
 // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
-    
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else {return false}
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
     
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
         
@@ -46,7 +53,7 @@ class SearchViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        database = db.read()
+        //database = db.read()
         print(database.count)
     }
     
@@ -67,23 +74,19 @@ class SearchViewController: UIViewController{
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                    
-        return searchResults?.count ?? database.count
+        if isFiltering { return searchResults.count}
+        return database.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchViewCell.reuseId, for: indexPath) as! SearchViewCell
-       
-        guard let data = searchResults?[indexPath.row] else {
-            cell.setData(with: database[indexPath.row])
-            return cell
-        }
-        cell.setData(with: data )
-        return cell
-            
         
+        let data = isFiltering ? searchResults[indexPath.row] : database[indexPath.row]
+        cell.setData(with: data)
+        return cell
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -94,20 +97,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        
-        guard let item = searchResults?[indexPath.row] else {
-            detailVC.item = database[indexPath.row]
-            self.present(detailVC, animated: true, completion: nil)
-            return
-        }
+        let item = isFiltering ? searchResults[indexPath.row] : database[indexPath.row]
         detailVC.item = item
         self.present(detailVC, animated: true, completion: nil)
     }
-    
-    
-
-    
-    
     
 }
 
@@ -115,52 +108,16 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Search Results Updating
 extension SearchViewController: UISearchResultsUpdating {
     
-    //cancel
-    
     func updateSearchResults(for searchController: UISearchController) {
-        fetchSearchWord(searchController.searchBar.text!)
+        fetchSearchesFromDB(searchText: searchController.searchBar.text!)
     }
 
-    private func fetchSearchWord(_ searchText: String) {
-        //searchText.replacingCharacters(in: " ", with: "_")
-        let searchText = searchText.replaceWhiteSpaceWithUnderline()
-       let urlString = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=\(searchText)"
-        networkManager.fetchCurrentCocktail(url: urlString) { [unowned self] (cocktails) in
-            
-            self.searchResults = cocktails
-            
-            //adding cocktails in database
-            for item in cocktails {
-                self.db.insert(drinkId: item.drinkId,
-                          drinkName: item.drinkName,
-                          category: item.category,
-                          isAlco: item.isAlco,
-                          glasses: item.glasses,
-                          instructions: item.instructions,
-                          imageUrl: item.imageUrl,
-                          ingridient1: self.prepareOptionalValues(string: item.ingridient1),
-                          ingridient2: self.prepareOptionalValues(string: item.ingridient2),
-                          ingridient3: self.prepareOptionalValues(string: item.ingridient3),
-                          ingridient4: self.prepareOptionalValues(string: item.ingridient4),
-                          ingridient5: self.prepareOptionalValues(string: item.ingridient5),
-                          ingridient6: self.prepareOptionalValues(string: item.ingridient6),
-                          ingridient7: self.prepareOptionalValues(string: item.ingridient7),
-                          isFavourite: false)
-                
-            }
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+    private func fetchSearchesFromDB(searchText: String) {
+        searchResults = database.filter({$0.drinkName.contains(searchText)})
+       
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-    }
-    
-    private func prepareOptionalValues(string: String?) -> String {
-        guard let string = string else { return ""}
-        if string.count >= 1 {
-            return string
-        }
-        return ""
     }
 
 }
@@ -189,5 +146,10 @@ extension String {
 
     func replaceWhiteSpaceWithUnderline() -> String {
         return self.replace(string: " ", replacement: "_")
+    }
+    
+    func replaceDowncasedToUppersCase(string: String) -> String {
+        return string.uppercased()
+        
     }
 }
