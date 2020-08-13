@@ -22,6 +22,7 @@ class SearchViewController: UIViewController{
     //var db: DBHelper = DBHelper()
     var searchResults = [CurrentCocktail]()
     
+
 // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
     private var searchBarIsEmpty: Bool {
@@ -39,8 +40,6 @@ class SearchViewController: UIViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
-        //navigationController?.hidesBarsOnSwipe = true
-
     }
     
     
@@ -52,12 +51,12 @@ class SearchViewController: UIViewController{
     
 // MARK: - Private Methods
    private func setUpSearchController() {
-        navigationController?.navigationItem.searchController = searchController
+        //navigationController?.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
-    
-        //navigationItem.searchController = searchController
+        //searchController.searchBar.barTintColor = .black
+        navigationItem.searchController = searchController
         definesPresentationContext = true
     
     }
@@ -109,10 +108,48 @@ extension SearchViewController: UISearchResultsUpdating {
     }
 
     private func fetchSearchesFromDB(searchText: String) {
-        searchResults = database.filter({$0.drinkName.contains(searchText)})
-       
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        var searchText = searchText
+        if searchText.contains(" ") {
+            var arrayOfTwoWords = searchText.components(separatedBy: " ")
+            let secondWords = arrayOfTwoWords[1].capitalizingFirstLetter()
+            arrayOfTwoWords[1] = secondWords
+            let returnedString = arrayOfTwoWords.joined(separator: " ")
+            searchResults = database.filter({$0.drinkName.contains(returnedString)})
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } else {
+            
+            //getting cocktails, whose ingridients might contain search word
+            let anotherResultsFirst = database.filter { (cocktail) -> Bool in
+                let array = [cocktail.ingridient1, cocktail.ingridient2, cocktail.ingridient3, cocktail.ingridient4, cocktail.ingridient5, cocktail.ingridient6, cocktail.ingridient7]
+                for item in array {
+                    guard let item = item else { return false }
+                    if item.contains(searchText) {
+                        return true
+                    }
+                }
+                return false
+            }
+            
+            //COMMENTED SO FAR; getting cocktails, whose glasses might contain search word
+//            let anotherResultsSecond = database.filter { (cocktail) -> Bool in
+//                if cocktail.glasses == searchText {
+//                    return true
+//                }
+//
+//                return false
+//            }
+        
+            searchResults = database.filter({$0.drinkName.contains(searchText)})
+            
+            //appending cocktails with relevant ingridients to the end of results, so these guys would be after relevant-by-name cocktails
+            searchResults.append(contentsOf: anotherResultsFirst )
+//          searchResults.append(contentsOf: anotherResultsSecond)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -161,8 +198,11 @@ extension String {
         return self.replace(string: " ", replacement: "_")
     }
     
-    func replaceDowncasedToUppersCase(string: String) -> String {
-        return string.uppercased()
-        
-    }
+   func capitalizingFirstLetter() -> String {
+       return prefix(1).capitalized + dropFirst()
+   }
+
+   mutating func capitalizeFirstLetter() {
+       self = self.capitalizingFirstLetter()
+   }
 }
