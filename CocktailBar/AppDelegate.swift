@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
         db = Firestore.firestore()
         DispatchQueue.global(qos: .userInteractive).async {
             self.db!.collection("TableOfDrinks").getDocuments { (querySnapshot, err) in
@@ -59,5 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        Analytics.logEvent("session_end", parameters: [
+            "message" : "App has been terminated" as NSObject])
+    }
 }
 

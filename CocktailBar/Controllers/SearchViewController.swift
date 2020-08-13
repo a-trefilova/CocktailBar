@@ -39,15 +39,8 @@ class SearchViewController: UIViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
-        
-//        DispatchQueue.global(qos: .background).async {
-//            let cfh = CloudFirestoreHelper()
-//            cfh.getData()
-//
-//            DispatchQueue.main.async {
-//                print("data is loaded to firebase")
-//            }
-//        }
+        //navigationController?.hidesBarsOnSwipe = true
+
     }
     
     
@@ -59,11 +52,14 @@ class SearchViewController: UIViewController{
     
 // MARK: - Private Methods
    private func setUpSearchController() {
+        navigationController?.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
+    
+        //navigationItem.searchController = searchController
         definesPresentationContext = true
+    
     }
     
 }
@@ -125,12 +121,29 @@ extension SearchViewController: UISearchResultsUpdating {
 
 extension SearchViewController: UIScrollViewDelegate {
 
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchController.isActive = false
-    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        searchController.isActive = false
+//    }
+//
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        searchController.isActive = true
+//    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if(velocity.y>0) {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.navigationController?.setToolbarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
 
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        searchController.isActive = true
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.navigationController?.setToolbarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
+          }
     }
     
     
