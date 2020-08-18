@@ -17,7 +17,7 @@ class FavouritesViewController: UIViewController {
 // MARK: - Public Properties
     var db: DBHelper = DBHelper()
     var arrayToReuse: [CurrentCocktail] = [CurrentCocktail]()
-
+    var ingridient: String?
 // MARK: - Private Properties
     private var numberOfSections: Int = 1
     
@@ -25,12 +25,22 @@ class FavouritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       // changingTitle()
         lovelyCocktails = db.readFavourites()
         tableView.reloadData()
+    }
+    
+    private func changingTitle() {
+        if arrayToReuse.count != 0 {
+            navigationController?.navigationBar.topItem?.title = "Cocktails with \(ingridient)"
+        } else {
+            navigationController?.navigationBar.topItem?.title = "Favourites"
+        }
     }
     
 }

@@ -298,7 +298,7 @@
             </objects>
             <point key="canvasLocation" x="549.27536231884062" y="46.875"/>
         </scene>
-        <!--Favourites-->
+        <!--Favourites View Controller-->
         <scene sceneID="2rd-0R-6PA">
             <objects>
                 <viewController storyboardIdentifier="FavouritesViewController" id="5ir-so-UwH" customClass="FavouritesViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
@@ -319,7 +319,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="r7q-RM-3Wr"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Favourites" id="hU5-PY-mdJ"/>
+                    <navigationItem key="navigationItem" id="hU5-PY-mdJ"/>
                     <connections>
                         <outlet property="tableView" destination="CFi-mZ-mQ8" id="XCk-Xc-Gxx"/>
                     </connections>

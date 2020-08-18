@@ -24,5 +24,25 @@ class DataProvider {
         
     }
     
+    public func getModelFromDB(with ingridient: String, completion: @escaping (CollectionModel) -> Void) {
+        var model: CollectionModel!
+        var modelArray: [CurrentCocktail] = []
+        let ingridient = ingridient.capitalizingFirstLetter()
+        modelArray = database.filter({$0.drinkName.contains(ingridient)})
+        let anotherResultsFirst = database.filter { (cocktail) -> Bool in
+                       let array = [cocktail.ingridient1, cocktail.ingridient2, cocktail.ingridient3, cocktail.ingridient4, cocktail.ingridient5, cocktail.ingridient6, cocktail.ingridient7]
+                       for item in array {
+                           guard let item = item else { return false }
+                           if item.contains(ingridient) {
+                               return true
+                           }
+                       }
+                       return false
+        }
+        modelArray.append(contentsOf: anotherResultsFirst)
+        
+        model = CollectionModel(name: ingridient, emoji: "", arrayOfCocktail: modelArray)
+        completion(model)
+    }
 }
 

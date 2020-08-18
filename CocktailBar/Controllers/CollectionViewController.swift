@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Nuke
 class CollectionViewController: UIViewController {
 
 // MARK: - IBOutlets
@@ -17,17 +17,13 @@ class CollectionViewController: UIViewController {
 // MARK: - Public Properties
     var arrayToPresent: [CollectionModel] = [CollectionModel]()
     var ingridients = ["gin"]
-    var allIngridientsForRandomize = ["gin",
+    var allIngridientsForRandomize = [
                                       "rum",
-                                      "vine",
                                       "beer",
                                       "tequila",
                                       "vodka",
                                       "aperol",
-                                      "sambuca",
-                                      "lemon",
-                                      "grenadine",
-                                      "soda"]
+                                      "lemon"]
     lazy var datasource = DataProvider()
     
     
@@ -52,8 +48,9 @@ class CollectionViewController: UIViewController {
  
 // MARK: - Private Methods
    private func prepareCollectionVC() {
+
         for item in ingridients {
-             DataProvider().getModel(with: item) {[weak self] model in
+            DataProvider().getModelFromDB(with: item) { [weak self] model in
                 self?.arrayToPresent.append(model)
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
@@ -116,11 +113,11 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         //print(item)
         
         cell.collectionLabel?.text = "Cocktails with \(text)"
-        if let imageUrl = item.arrayOfCocktail.first?.imageUrl {
-            PictureManager.downloadImage(url: imageUrl ) { data in
-                cell.backgroundImageView.image = UIImage(data: data)
-                cell.gradientView.isHidden = true 
-            }
+
+        guard let string = item.arrayOfCocktail.first?.imageUrl else { return cell }
+        guard let url = URL(string: string) else { return cell }
+        Nuke.loadImage(with: url,  into: cell.backgroundImageView) { _ in
+            cell.gradientView.isHidden = true
         }
         
         return cell
@@ -142,6 +139,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tableVC = storyboard.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
         tableVC.arrayToReuse = arrayToPresent[indexPath.item].arrayOfCocktail
+        tableVC.navigationController?.navigationBar.topItem?.title = "Cocktails with \(arrayToPresent[indexPath.item].name)"
         self.navigationController?.pushViewController(tableVC, animated: true)
     }
     
