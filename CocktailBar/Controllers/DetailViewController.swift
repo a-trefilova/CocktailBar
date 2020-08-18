@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Nuke
+
 
 class DetailViewController: UIViewController {
     
@@ -93,11 +95,6 @@ class DetailViewController: UIViewController {
     
     private func fillOutletsWithData() {
         nameLabel.text = item.drinkName
-        PictureManager.downloadImage(url: item.imageUrl, completion: { [weak self] (data) in
-            DispatchQueue.main.async {
-                self?.cocktailImage.image = UIImage(data: data)
-            }
-        })
         categoryLabel.text = item.category
         instructionLabel.text = item.instructions
         ingridient1Label.text = item.ingridient1
@@ -106,6 +103,9 @@ class DetailViewController: UIViewController {
         ingridient4Label.text = item.ingridient4
         ingridient5Label.text = item.ingridient5
         ingridient6Label.text = item.ingridient6
+        
+        guard let url = URL(string: item.imageUrl) else { return }
+        Nuke.loadImage(with: url, into: cocktailImage)
     }
     
     

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		1272A01624C063ED00B21B0B /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272A01524C063ED00B21B0B /* GlobalVariables.swift */; };
 		12756D9424E18B850095CFB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12756D9324E18B850095CFB1 /* GoogleService-Info.plist */; };
 		12756D9724E294530095CFB1 /* CloudFirestoreHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12756D9624E294530095CFB1 /* CloudFirestoreHelper.swift */; };
+		12756D9924E6C62F0095CFB1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12756D9824E6C62F0095CFB1 /* CustomSegmentedControl.swift */; };
+		12756DEC24EBDA5D0095CFB1 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12756DEB24EBDA5D0095CFB1 /* Nuke */; };
 		12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6624A3439800183DD0 /* SearchViewController.swift */; };
 		12E12F6F24A7990D00183DD0 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */; };
 		12E12F7124A941E900183DD0 /* SearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E12F7024A941E900183DD0 /* SearchViewCell.xib */; };
@@ -43,6 +45,7 @@
 		1272A01524C063ED00B21B0B /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		12756D9324E18B850095CFB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		12756D9624E294530095CFB1 /* CloudFirestoreHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudFirestoreHelper.swift; sourceTree = "<group>"; };
+		12756D9824E6C62F0095CFB1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		12E12F6624A3439800183DD0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		12E12F7024A941E900183DD0 /* SearchViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewCell.xib; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78B7C77CB4AF668749201AF7 /* Pods_CocktailBar.framework in Frameworks */,
+				12756DEC24EBDA5D0095CFB1 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,7 @@
 				120C406F24B4FD28006B3789 /* CollectionCell.xib */,
 				12EB9BEC24AA4F7D00CE05E3 /* GradientView.swift */,
 				12756D9624E294530095CFB1 /* CloudFirestoreHelper.swift */,
+				12756D9824E6C62F0095CFB1 /* CustomSegmentedControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,6 +206,9 @@
 			dependencies = (
 			);
 			name = CocktailBar;
+			packageProductDependencies = (
+				12756DEB24EBDA5D0095CFB1 /* Nuke */,
+			);
 			productName = CocktailBar;
 			productReference = 12EE36F92485870400E95779 /* CocktailBar.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +237,9 @@
 				Base,
 			);
 			mainGroup = 12EE36F02485870400E95779;
+			packageReferences = (
+				12756DEA24EBDA5C0095CFB1 /* XCRemoteSwiftPackageReference "Nuke" */,
+			);
 			productRefGroup = 12EE36FA2485870400E95779 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -324,6 +335,7 @@
 				120C406424AFC5F1006B3789 /* CollectionViewController.swift in Sources */,
 				12EE36FD2485870400E95779 /* AppDelegate.swift in Sources */,
 				12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */,
+				12756D9924E6C62F0095CFB1 /* CustomSegmentedControl.swift in Sources */,
 				12EB9BED24AA4F7D00CE05E3 /* GradientView.swift in Sources */,
 				12EB9BF324AB4F9300CE05E3 /* DetailViewController.swift in Sources */,
 				12EB9BE624AA241C00CE05E3 /* CollectionViewCell.swift in Sources */,
@@ -536,6 +548,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12756DEA24EBDA5C0095CFB1 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12756DEB24EBDA5D0095CFB1 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12756DEA24EBDA5C0095CFB1 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 12EE36F12485870400E95779 /* Project object */;
 }

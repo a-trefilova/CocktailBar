@@ -40,6 +40,7 @@ class SearchViewController: UIViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
+       // setUpSegmentedControl()
     }
     
     
@@ -51,6 +52,14 @@ class SearchViewController: UIViewController{
     
 // MARK: - Private Methods
    private func setUpSearchController() {
+    
+    navigationController?.navigationBar.isTranslucent = true
+    let navigationBar = navigationController?.navigationBar
+    let navigationBarAppearence = UINavigationBarAppearance()
+    navigationBarAppearence.shadowColor = .clear
+    navigationBar?.scrollEdgeAppearance = navigationBarAppearence
+    
+    
         //navigationController?.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -59,6 +68,12 @@ class SearchViewController: UIViewController{
         navigationItem.searchController = searchController
         definesPresentationContext = true
     
+    }
+    
+    private func setUpSegmentedControl() {
+        let segmentedControl = CustomSegmentedControl(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 50), buttonTitle: ["Cocktails with alcohol", "Ordinary Drinks", "Hot cocktails", "Non-alco"])
+        segmentedControl.backgroundColor = .clear
+        navigationController?.navigationBar.addSubview(segmentedControl)
     }
     
 }
@@ -105,6 +120,7 @@ extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         fetchSearchesFromDB(searchText: searchController.searchBar.text!)
+        
     }
 
     private func fetchSearchesFromDB(searchText: String) {
@@ -165,7 +181,7 @@ extension SearchViewController: UIScrollViewDelegate {
 //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 //        searchController.isActive = true
 //    }
-    
+//
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if(velocity.y>0) {
             UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
@@ -177,7 +193,8 @@ extension SearchViewController: UIScrollViewDelegate {
         } else {
             UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.navigationController?.setToolbarHidden(false, animated: true)
+                self.searchController.isActive = true 
+               // self.navigationController?.setToolbarHidden(false, animated: true)
                 print("Unhide")
             }, completion: nil)
           }

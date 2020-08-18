@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Nuke
 class SearchViewCell: UITableViewCell {
     
 // MARK: - IBOutlets
@@ -52,17 +52,12 @@ class SearchViewCell: UITableViewCell {
  
 // MARK: - Public Methods
     func setData(with properties: CurrentCocktail) {
-        PictureManager.downloadImage(url: properties.imageUrl) { (data) in
-            guard !data.isEmpty else { return }
-            DispatchQueue.main.async {
-                self.cocktailImage.image = UIImage(data: data)
-            }
-           return
-        }
+
         drinkNameLabel.text = properties.drinkName
         categoryLabel.text = properties.category
         isAlcoholLabel.text = properties.isAlco
-        
+        guard let url = URL(string: properties.imageUrl) else { return }
+        Nuke.loadImage(with: url, into: cocktailImage)
     }
     
 // MARK: - Private Methods
