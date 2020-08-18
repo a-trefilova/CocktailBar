@@ -139,7 +139,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let tableVC = storyboard.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
         tableVC.arrayToReuse = arrayToPresent[indexPath.item].arrayOfCocktail
-        tableVC.navigationController?.navigationBar.topItem?.title = "Cocktails with \(arrayToPresent[indexPath.item].name)"
+        tableVC.ingridient = arrayToPresent[indexPath.item].name
         self.navigationController?.pushViewController(tableVC, animated: true)
     }
     

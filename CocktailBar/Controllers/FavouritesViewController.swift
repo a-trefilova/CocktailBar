@@ -25,22 +25,29 @@ class FavouritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
-        
+        setUpTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // changingTitle()
+        changingTitle()
         lovelyCocktails = db.readFavourites()
         tableView.reloadData()
     }
+ 
+// MARK: - Private methods
     
     private func changingTitle() {
         if arrayToReuse.count != 0 {
-            navigationController?.navigationBar.topItem?.title = "Cocktails with \(ingridient)"
+            self.navigationItem.title = "Cocktails with \(ingridient ?? "ingridient") "
+            
         } else {
-            navigationController?.navigationBar.topItem?.title = "Favourites"
+            self.navigationItem.title = "Favourites"
         }
+    }
+    
+    private func setUpTableView() {
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
 }
@@ -102,7 +109,5 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
            }
        }
-    
-   
     
 }

@@ -40,6 +40,7 @@ class SearchViewController: UIViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
+        setUpTableView()
        // setUpSegmentedControl()
     }
     
@@ -74,6 +75,10 @@ class SearchViewController: UIViewController{
         let segmentedControl = CustomSegmentedControl(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 50), buttonTitle: ["Cocktails with alcohol", "Ordinary Drinks", "Hot cocktails", "Non-alco"])
         segmentedControl.backgroundColor = .clear
         navigationController?.navigationBar.addSubview(segmentedControl)
+    }
+    
+    private func setUpTableView() {
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
 }
