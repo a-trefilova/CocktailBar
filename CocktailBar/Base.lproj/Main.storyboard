@@ -409,6 +409,47 @@
             </objects>
             <point key="canvasLocation" x="128.98550724637681" y="-1357.3660714285713"/>
         </scene>
+        <!--Filter View Controller-->
+        <scene sceneID="1HE-Ez-tzh">
+            <objects>
+                <viewController storyboardIdentifier="popVC" id="x9V-pD-HkR" customClass="FilterViewController" customModule="CocktailBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NuF-0Y-opX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Rz-Oe-Vdy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vF4-a4-kfe">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vF4-a4-kfe" id="5cA-bg-k66">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="x9V-pD-HkR" id="pUv-G9-rXk"/>
+                                    <outlet property="delegate" destination="x9V-pD-HkR" id="GB2-ft-w6X"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="2Rz-Oe-Vdy" firstAttribute="leading" secondItem="gzr-bb-oPN" secondAttribute="leading" id="B3I-me-frj"/>
+                            <constraint firstAttribute="bottom" secondItem="2Rz-Oe-Vdy" secondAttribute="bottom" id="HxH-fP-97p"/>
+                            <constraint firstItem="2Rz-Oe-Vdy" firstAttribute="top" secondItem="NuF-0Y-opX" secondAttribute="top" id="MLr-hE-JYI"/>
+                            <constraint firstItem="2Rz-Oe-Vdy" firstAttribute="trailing" secondItem="gzr-bb-oPN" secondAttribute="trailing" id="bd8-FE-GIc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gzr-bb-oPN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Seu-ow-KMI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2147.826086956522" y="-867.1875"/>
+        </scene>
     </scenes>
     <resources>
         <image name="heart" catalog="system" width="128" height="109"/>

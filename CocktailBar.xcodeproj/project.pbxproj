@@ -12,6 +12,7 @@
 		120C407024B4FD28006B3789 /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 120C406F24B4FD28006B3789 /* CollectionCell.xib */; };
 		120C407224B5A096006B3789 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C407124B5A096006B3789 /* FavouritesViewController.swift */; };
 		120C407824BA38D1006B3789 /* DBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C407724BA38D1006B3789 /* DBHelper.swift */; };
+		1221A0D824EFC14E0070EB7F /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1221A0D724EFC14E0070EB7F /* FilterViewController.swift */; };
 		1272A01424C0603C00B21B0B /* PictureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272A01324C0603C00B21B0B /* PictureManager.swift */; };
 		1272A01624C063ED00B21B0B /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272A01524C063ED00B21B0B /* GlobalVariables.swift */; };
 		12756D9424E18B850095CFB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12756D9324E18B850095CFB1 /* GoogleService-Info.plist */; };
@@ -41,6 +42,7 @@
 		120C406F24B4FD28006B3789 /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
 		120C407124B5A096006B3789 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		120C407724BA38D1006B3789 /* DBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelper.swift; sourceTree = "<group>"; };
+		1221A0D724EFC14E0070EB7F /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		1272A01324C0603C00B21B0B /* PictureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureManager.swift; sourceTree = "<group>"; };
 		1272A01524C063ED00B21B0B /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		12756D9324E18B850095CFB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				120C407124B5A096006B3789 /* FavouritesViewController.swift */,
 				12EB9BF224AB4F9300CE05E3 /* DetailViewController.swift */,
 				120C406324AFC5F1006B3789 /* CollectionViewController.swift */,
+				1221A0D724EFC14E0070EB7F /* FilterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				12EE36FF2485870400E95779 /* SceneDelegate.swift in Sources */,
 				12EE371724858A6100E95779 /* NetworkManager.swift in Sources */,
 				1272A01624C063ED00B21B0B /* GlobalVariables.swift in Sources */,
+				1221A0D824EFC14E0070EB7F /* FilterViewController.swift in Sources */,
 				120C406824B260A0006B3789 /* DataProvider.swift in Sources */,
 				120C407824BA38D1006B3789 /* DBHelper.swift in Sources */,
 				12EE3713248588D900E95779 /* Cocktail.swift in Sources */,

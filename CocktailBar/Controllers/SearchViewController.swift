@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 
 
-class SearchViewController: UIViewController{
+class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate{
     
 // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -51,16 +51,17 @@ class SearchViewController: UIViewController{
         print(database.count)
     }
     
+   
 // MARK: - Private Methods
    private func setUpSearchController() {
     
-    navigationController?.navigationBar.isTranslucent = true
-    let navigationBar = navigationController?.navigationBar
-    let navigationBarAppearence = UINavigationBarAppearance()
-    navigationBarAppearence.shadowColor = .clear
-    navigationBar?.scrollEdgeAppearance = navigationBarAppearence
-    
-    
+        navigationController?.navigationBar.isTranslucent = true
+        let navigationBar = navigationController?.navigationBar
+        let navigationBarAppearence = UINavigationBarAppearance()
+        navigationBarAppearence.shadowColor = .clear
+        navigationBar?.scrollEdgeAppearance = navigationBarAppearence
+        
+        
         //navigationController?.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -68,7 +69,40 @@ class SearchViewController: UIViewController{
         //searchController.searchBar.barTintColor = .black
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        //setting up right button
+        searchController.searchBar.delegate = self
+        searchController.searchBar.showsBookmarkButton = true
+        searchController.searchBar.setImage(UIImage(systemName: "line.horizontal.3.decrease"), for: .bookmark, state: .normal)
     
+    }
+    
+    internal func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+           print("__________________________________")
+           print("bookmark clicked")
+           print("----------------------------------")
+        
+        var arrayOfCategories: [String] = []
+        for item in database {
+            if !arrayOfCategories.contains(item.category){
+            arrayOfCategories.append(item.category)
+            }
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let popVC = storyboard.instantiateViewController(withIdentifier: "popVC") as! FilterViewController
+        popVC.arrayOfItems = arrayOfCategories
+        popVC.modalPresentationStyle = .popover
+        let popOverVC = popVC.popoverPresentationController
+        popOverVC?.delegate = self
+        popOverVC?.sourceView = searchBar
+        popOverVC?.sourceRect = CGRect(x: searchBar.bounds.width - 35 , y: searchBar.bounds.midY + 5 , width: 0, height: 0)
+        popVC.preferredContentSize = CGSize(width: 250, height: 250)
+        self.present(popVC, animated: true)
+       }
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     private func setUpSegmentedControl() {
@@ -123,7 +157,14 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Search Results Updating
 extension SearchViewController: UISearchResultsUpdating {
     
+    
+    
     func updateSearchResults(for searchController: UISearchController) {
+        if searchController.isActive {
+            searchController.searchBar.showsBookmarkButton = false
+        } else {
+            searchController.searchBar.showsBookmarkButton = true
+        }
         fetchSearchesFromDB(searchText: searchController.searchBar.text!)
         
     }
