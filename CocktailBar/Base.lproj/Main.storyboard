@@ -421,7 +421,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vF4-a4-kfe">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vF4-a4-kfe" customClass="FilterViewCell" customModule="CocktailBar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vF4-a4-kfe" id="5cA-bg-k66">
@@ -445,10 +445,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gzr-bb-oPN"/>
                     </view>
+                    <navigationItem key="navigationItem" id="S8O-gc-wqd"/>
+                    <connections>
+                        <outlet property="tableView" destination="2Rz-Oe-Vdy" id="LMe-6X-7Dv"/>
+                        <segue destination="Z4e-1i-KCX" kind="unwind" identifier="unwindSegue" unwindAction="unwindSegue:" id="rfT-Tc-hIr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Seu-ow-KMI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Z4e-1i-KCX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2147.826086956522" y="-867.1875"/>
+            <point key="canvasLocation" x="-103" y="1008"/>
         </scene>
     </scenes>
     <resources>

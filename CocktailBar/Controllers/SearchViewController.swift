@@ -10,6 +10,8 @@ import UIKit
 import SQLite
 
 
+
+
 class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate{
     
 // MARK: - IBOutlets
@@ -21,8 +23,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
     var networkManager = CocktailNetworkManager()
     //var db: DBHelper = DBHelper()
     var searchResults = [CurrentCocktail]()
+    var filterWord : String!
     
-
 // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
     private var searchBarIsEmpty: Bool {
@@ -30,7 +32,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         return text.isEmpty
     }
     private var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty
+        if searchController.isActive && searchResults.count != 0 {return true}
+        return (searchController.isActive && !searchBarIsEmpty) || (searchResults.count != 0 && filterWord != nil )
     }
     
 // MARK: - Lifecycle
@@ -41,7 +44,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
         setUpTableView()
-       // setUpSegmentedControl()
+       
     }
     
     
@@ -68,8 +71,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         searchController.searchBar.placeholder = "Search"
         //searchController.searchBar.barTintColor = .black
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
+    
+        navigationController?.navigationBar.addSubview(searchController.searchBar)
+    
         //setting up right button
         searchController.searchBar.delegate = self
         searchController.searchBar.showsBookmarkButton = true
@@ -77,12 +83,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
     
     }
     
-    internal func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-           print("__________________________________")
-           print("bookmark clicked")
-           print("----------------------------------")
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+           
         
-        var arrayOfCategories: [String] = []
+        var arrayOfCategories: [String] = ["Reset all filters"]
         for item in database {
             if !arrayOfCategories.contains(item.category){
             arrayOfCategories.append(item.category)
@@ -92,28 +96,40 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let popVC = storyboard.instantiateViewController(withIdentifier: "popVC") as! FilterViewController
         popVC.arrayOfItems = arrayOfCategories
-        popVC.modalPresentationStyle = .popover
+        popVC.modalPresentationStyle = .pageSheet
         let popOverVC = popVC.popoverPresentationController
         popOverVC?.delegate = self
         popOverVC?.sourceView = searchBar
         popOverVC?.sourceRect = CGRect(x: searchBar.bounds.width - 35 , y: searchBar.bounds.midY + 5 , width: 0, height: 0)
         popVC.preferredContentSize = CGSize(width: 250, height: 250)
         self.present(popVC, animated: true)
+        
+        
        }
 
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     
-    private func setUpSegmentedControl() {
-        let segmentedControl = CustomSegmentedControl(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 50), buttonTitle: ["Cocktails with alcohol", "Ordinary Drinks", "Hot cocktails", "Non-alco"])
-        segmentedControl.backgroundColor = .clear
-        navigationController?.navigationBar.addSubview(segmentedControl)
-    }
+   
     
     private func setUpTableView() {
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        if filterWord == "Reset all filters" {
+            let results = database
+            searchResults = results
+            tableView.reloadData()
+        } else  {
+          let results = database.filter({$0.category == filterWord})
+          searchResults = results
+            tableView.reloadData()
+        }
+        
+    }
+    
     
 }
 
@@ -232,15 +248,19 @@ extension SearchViewController: UIScrollViewDelegate {
         if(velocity.y>0) {
             UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
+                //self.searchController.isActive = false
+                
                 self.navigationController?.setToolbarHidden(true, animated: true)
                 print("Hide")
             }, completion: nil)
 
-        } else {
+        }
+        else {
             UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.searchController.isActive = true 
-               // self.navigationController?.setToolbarHidden(false, animated: true)
+                self.navigationController?.navigationBar.isHidden = false
+                //self.searchController.isActive = true
+                //self.navigationController?.setToolbarHidden(false, animated: true)
                 print("Unhide")
             }, completion: nil)
           }
