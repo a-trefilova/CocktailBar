@@ -13,6 +13,7 @@ import SQLite
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var db: Firestore?
     let dbSQlite: DBHelper = DBHelper()
     
@@ -64,6 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Analytics.logEvent("session_end", parameters: [
             "message" : "App has been terminated" as NSObject])
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        let cloudHelper = CloudFirestoreHelper()
+        cloudHelper.updateData()
     }
 }
 
