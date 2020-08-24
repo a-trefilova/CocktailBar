@@ -16,14 +16,7 @@ class CollectionViewController: UIViewController {
     
 // MARK: - Public Properties
     var arrayToPresent: [CollectionModel] = [CollectionModel]()
-    var ingridients = ["gin"]
-    var allIngridientsForRandomize = [
-                                      "rum",
-                                      "beer",
-                                      "tequila",
-                                      "vodka",
-                                      "aperol",
-                                      "lemon"]
+    var categories = ["gin"]
     lazy var datasource = DataProvider()
     
     
@@ -37,11 +30,11 @@ class CollectionViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        navigationItem.title = "Categories"
         collectionView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.reuseId)
         setUpPageControl()
-        fillArrayWithRandomIngridients()
-        
+       // fillArrayWithRandomIngridients()
+        getAllCategories()
         
     }
     
@@ -49,16 +42,26 @@ class CollectionViewController: UIViewController {
 // MARK: - Private Methods
    private func prepareCollectionVC() {
 
-        for item in ingridients {
-            DataProvider().getModelFromDB(with: item) { [weak self] model in
-                self?.arrayToPresent.append(model)
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
-            }
+        for item in categories {
+            let results = database.filter({$0.category == item})
+            let modelToReturn = CollectionModel(name: "\(item)", emoji: "", arrayOfCocktail: results)
+            arrayToPresent.append(modelToReturn)
         }
     }
   
+    private func getAllCategories() {
+        var arrayOfCategories: [String] = []
+        for item in database {
+            if !arrayOfCategories.contains(item.category){
+            arrayOfCategories.append(item.category)
+            }
+        }
+        let firstItem = arrayOfCategories.removeFirst()
+        arrayOfCategories.append(firstItem)
+        categories = arrayOfCategories
+        prepareCollectionVC()
+        
+    }
     
     private func calculateSizeOfCell() -> CGSize {
         let screenSize = UIScreen.main.bounds
@@ -68,19 +71,6 @@ class CollectionViewController: UIViewController {
         let heightOfCell = height - 300
         
         return CGSize(width: widthOfCell, height: heightOfCell)
-    }
-    
-    private func fillArrayWithRandomIngridients() {
-        arrayToPresent = []
-        ingridients = []
-        pageControl.numberOfPages = 0
-        for _ in 0...5 {
-            guard let element = allIngridientsForRandomize.randomElement() else { return }
-            if !ingridients.contains(element) {
-                ingridients.append(element)
-            }
-        }
-        prepareCollectionVC()
     }
     
     private func setUpPageControl() {
@@ -112,7 +102,7 @@ extension CollectionViewController: UICollectionViewDataSource, UICollectionView
         let text = item.name
         //print(item)
         
-        cell.collectionLabel?.text = "Cocktails with \(text)"
+        cell.collectionLabel?.text = "\(text)"
 
         guard let string = item.arrayOfCocktail.first?.imageUrl else { return cell }
         guard let url = URL(string: string) else { return cell }

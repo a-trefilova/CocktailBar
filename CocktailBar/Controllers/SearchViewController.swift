@@ -33,7 +33,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
     }
     private var isFiltering: Bool {
         if searchController.isActive && searchResults.count != 0 {return true}
-        return (searchController.isActive && !searchBarIsEmpty) || (searchResults.count != 0 && filterWord != nil )
+        return (searchController.isActive && !searchBarIsEmpty) || (searchResults.count != 0 && filterWord != nil ) 
     }
     
 // MARK: - Lifecycle
@@ -63,8 +63,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         let navigationBarAppearence = UINavigationBarAppearance()
         navigationBarAppearence.shadowColor = .clear
         navigationBar?.scrollEdgeAppearance = navigationBarAppearence
-        
-        
+    
+        navigationBar?.topItem?.title = nil
+        navigationBar?.prefersLargeTitles = true
+        navigationItem.title = "Search"
         //navigationController?.navigationItem.searchController = searchController
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -117,6 +119,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
+    
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         if filterWord == "Reset all filters" {
             let results = database
@@ -129,6 +132,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         }
         
     }
+    
+
     
     
 }

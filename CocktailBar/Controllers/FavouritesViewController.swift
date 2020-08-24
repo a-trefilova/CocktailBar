@@ -31,6 +31,7 @@ class FavouritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         changingTitle()
+        setUPNavBar()
         lovelyCocktails = db.readFavourites()
         tableView.reloadData()
     }
@@ -39,11 +40,16 @@ class FavouritesViewController: UIViewController {
     
     private func changingTitle() {
         if arrayToReuse.count != 0 {
-            self.navigationItem.title = "Cocktails with \(ingridient ?? "ingridient") "
+            self.navigationItem.title = " \(ingridient ?? "ingridient") "
             
         } else {
             self.navigationItem.title = "Favourites"
         }
+    }
+    
+    private func setUPNavBar() {
+        navigationController?.navigationBar.backgroundColor = .white
+        
     }
     
     private func setUpTableView() {

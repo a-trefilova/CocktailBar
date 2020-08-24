@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="W1A-cp-Ltj">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="E0m-lM-HDN" id="mz1-XK-Fxa"/>
@@ -33,7 +33,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qyo-zq-BlT"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="FaC-Tx-NtV"/>
+                    <navigationItem key="navigationItem" title="Search" largeTitleDisplayMode="always" id="FaC-Tx-NtV"/>
                     <connections>
                         <outlet property="tableView" destination="W1A-cp-Ltj" id="vtk-4p-9GM"/>
                         <segue destination="O4m-aO-IRY" kind="show" identifier="showDetails" id="QBv-42-hRX"/>
@@ -81,7 +81,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fN0-vf-LA6"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Collections" id="GCE-DF-qNb"/>
+                    <navigationItem key="navigationItem" title="Collections" largeTitleDisplayMode="always" id="GCE-DF-qNb"/>
                     <connections>
                         <outlet property="collectionView" destination="wQG-fw-enJ" id="HWs-TL-cgm"/>
                         <outlet property="pageControl" destination="a3T-gz-AZS" id="XXa-ni-9nJ"/>
@@ -100,10 +100,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sv-fX-IKw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGt-fp-n8Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="76a-mG-98V">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="580"/>
@@ -112,7 +112,7 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAi-bQ-BGA">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cocktailName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7D9-bQ-moO">
                                                         <rect key="frame" x="20" y="24" width="135.5" height="29"/>
@@ -336,8 +336,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="faR-hc-ccX" kind="relationship" relationship="viewControllers" id="0OI-zK-OoA"/>
@@ -355,10 +355,10 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eIh-pf-iay" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="km0-i3-W75"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MKo-IQ-iQ1">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="MKo-IQ-iQ1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -369,16 +369,17 @@
             </objects>
             <point key="canvasLocation" x="-1062.3188405797102" y="44.866071428571423"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Categories-->
         <scene sceneID="SNi-yv-AIg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="faR-hc-ccX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="featured" id="Ge7-w1-F2f"/>
+                    <tabBarItem key="tabBarItem" title="Categories" image="list.bullet" catalog="system" id="Ge7-w1-F2f"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RGn-rS-4ol">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="RGn-rS-4ol">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -395,10 +396,10 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="73l-Ws-emE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favourites" image="heart.fill" catalog="system" id="R1N-MM-BzE"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7hE-6E-MY6">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="7hE-6E-MY6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -460,5 +461,6 @@
     <resources>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
     </resources>
 </document>
