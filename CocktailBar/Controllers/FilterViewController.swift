@@ -10,23 +10,27 @@ import UIKit
 
 class FilterViewController: UIViewController {
     
+//MARK: - INOutlets
     @IBOutlet weak var tableView: UITableView!
     
+// MARK: - Public Properties
     var arrayOfItems: [String] = []
-
     var selectedItem : String!
     
+    
+//MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
     }
-    
+ 
+// MARK: - Public Methods
     func updateSelectedItem(completion: (String) -> Void) {
         guard let item = selectedItem else { return }
         completion(item)
     }
-    
+
+// MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindSegue" {
             let mainVC = segue.destination as! SearchViewController
@@ -39,6 +43,8 @@ class FilterViewController: UIViewController {
     }
 
 }
+
+//MARK: - Table View Datasource & Delegate
 
 extension FilterViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
