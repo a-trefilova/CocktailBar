@@ -38,36 +38,37 @@
 #import "FBLPromises.h"
 #endif
 
-#import "FIRCLSApplication.h"
-#import "FIRCLSDataCollectionArbiter.h"
-#import "FIRCLSDataCollectionToken.h"
-#import "FIRCLSDefines.h"
-#import "FIRCLSFeatures.h"
-#import "FIRCLSFileManager.h"
-#import "FIRCLSInternalReport.h"
-#import "FIRCLSLogger.h"
-#import "FIRCLSNetworkClient.h"
-#import "FIRCLSPackageReportOperation.h"
-#import "FIRCLSProcessReportOperation.h"
-#import "FIRCLSReportUploader.h"
-#import "FIRCLSSettings.h"
-#import "FIRCLSSymbolResolver.h"
-#import "FIRCLSUserLogging.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSApplication.h"
+#import "Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h"
+#import "Crashlytics/Crashlytics/Controllers/FIRCLSNetworkClient.h"
+#import "Crashlytics/Crashlytics/Controllers/FIRCLSReportUploader.h"
+#import "Crashlytics/Crashlytics/DataCollection/FIRCLSDataCollectionArbiter.h"
+#import "Crashlytics/Crashlytics/DataCollection/FIRCLSDataCollectionToken.h"
+#import "Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h"
+#import "Crashlytics/Crashlytics/Helpers/FIRCLSFeatures.h"
+#import "Crashlytics/Crashlytics/Helpers/FIRCLSLogger.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSFileManager.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSInternalReport.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSSettings.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSSymbolResolver.h"
+#import "Crashlytics/Crashlytics/Operations/Reports/FIRCLSPackageReportOperation.h"
+#import "Crashlytics/Crashlytics/Operations/Reports/FIRCLSProcessReportOperation.h"
 
-#include "FIRCLSGlobals.h"
-#include "FIRCLSUtility.h"
+#include "Crashlytics/Crashlytics/Components/FIRCLSGlobals.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSUtility.h"
 
-#import "FIRCLSConstants.h"
-#import "FIRCLSExecutionIdentifierModel.h"
-#import "FIRCLSInstallIdentifierModel.h"
-#import "FIRCLSSettingsOnboardingManager.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSExecutionIdentifierModel.h"
+#import "Crashlytics/Crashlytics/Models/FIRCLSInstallIdentifierModel.h"
+#import "Crashlytics/Crashlytics/Settings/FIRCLSSettingsManager.h"
+#import "Crashlytics/Shared/FIRCLSConstants.h"
 
-#import "FIRCLSReportManager_Private.h"
+#import "Crashlytics/Crashlytics/Controllers/FIRCLSReportManager_Private.h"
 
-#include <FirebaseAnalyticsInterop/FIRAnalyticsInterop.h>
-#include <FirebaseAnalyticsInterop/FIRAnalyticsInteropListener.h>
-#include "FIRAEvent+Internal.h"
-#include "FIRCLSFCRAnalytics.h"
+#import "Interop/Analytics/Public/FIRAnalyticsInterop.h"
+#import "Interop/Analytics/Public/FIRAnalyticsInteropListener.h"
+
+#include "Crashlytics/Crashlytics/Helpers/FIRAEvent+Internal.h"
+#include "Crashlytics/Crashlytics/Helpers/FIRCLSFCRAnalytics.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -170,8 +171,8 @@ typedef NSNumber FIRCLSWrappedBool;
 // Settings fetched from the server
 @property(nonatomic, strong) FIRCLSSettings *settings;
 
-// Runs the operations that fetch settings and call onboarding endpoints
-@property(nonatomic, strong) FIRCLSSettingsOnboardingManager *settingsAndOnboardingManager;
+// Runs the operations that fetch settings
+@property(nonatomic, strong) FIRCLSSettingsManager *settingsManager;
 
 @property(nonatomic, strong) GDTCORTransport *googleTransport;
 
@@ -225,12 +226,11 @@ static void (^reportSentCallback)(void);
   _settings = settings;
   _appIDModel = appIDModel;
 
-  _settingsAndOnboardingManager =
-      [[FIRCLSSettingsOnboardingManager alloc] initWithAppIDModel:appIDModel
-                                                   installIDModel:self.installIDModel
-                                                         settings:self.settings
-                                                      fileManager:self.fileManager
-                                                      googleAppID:self.googleAppID];
+  _settingsManager = [[FIRCLSSettingsManager alloc] initWithAppIDModel:appIDModel
+                                                        installIDModel:self.installIDModel
+                                                              settings:self.settings
+                                                           fileManager:self.fileManager
+                                                           googleAppID:self.googleAppID];
 
   return self;
 }
@@ -305,7 +305,7 @@ static void (^reportSentCallback)(void);
   NSTimeInterval currentTimestamp = [NSDate timeIntervalSinceReferenceDate];
   [self.settings reloadFromCacheWithGoogleAppID:self.googleAppID currentTimestamp:currentTimestamp];
 
-  if (![self checkBundleIDExists]) {
+  if (![self validateAppIdentifiers]) {
     return [FBLPromise resolvedWith:@NO];
   }
 
@@ -359,7 +359,7 @@ static void (^reportSentCallback)(void);
     FIRCLSDebugLog(@"Unsent reports will be uploaded at startup");
     FIRCLSDataCollectionToken *dataCollectionToken = [FIRCLSDataCollectionToken validToken];
 
-    [self beginSettingsAndOnboardingWithToken:dataCollectionToken waitForSettingsRequest:NO];
+    [self beginSettingsWithToken:dataCollectionToken waitForSettingsRequest:NO];
 
     [self beginReportUploadsWithToken:dataCollectionToken
                preexistingReportPaths:preexistingReportPaths
@@ -397,8 +397,8 @@ static void (^reportSentCallback)(void);
                  BOOL waitForSetting =
                      !self.settings.shouldUseNewReportEndpoint && !self.settings.orgID;
 
-                 [self beginSettingsAndOnboardingWithToken:dataCollectionToken
-                                    waitForSettingsRequest:waitForSetting];
+                 [self beginSettingsWithToken:dataCollectionToken
+                       waitForSettingsRequest:waitForSetting];
 
                  [self beginReportUploadsWithToken:dataCollectionToken
                             preexistingReportPaths:preexistingReportPaths
@@ -453,16 +453,16 @@ static void (^reportSentCallback)(void);
   }];
 }
 
-- (void)beginSettingsAndOnboardingWithToken:(FIRCLSDataCollectionToken *)token
-                     waitForSettingsRequest:(BOOL)waitForSettings {
+- (void)beginSettingsWithToken:(FIRCLSDataCollectionToken *)token
+        waitForSettingsRequest:(BOOL)waitForSettings {
   if (self.settings.isCacheExpired) {
     // This method can be called more than once if the user calls
     // SendUnsentReports again, so don't repeat the settings fetch
     static dispatch_once_t settingsFetchOnceToken;
     dispatch_once(&settingsFetchOnceToken, ^{
-      [self.settingsAndOnboardingManager beginSettingsAndOnboardingWithGoogleAppId:self.googleAppID
-                                                                             token:token
-                                                                 waitForCompletion:waitForSettings];
+      [self.settingsManager beginSettingsWithGoogleAppId:self.googleAppID
+                                                   token:token
+                                       waitForCompletion:waitForSettings];
     });
   }
 }
@@ -506,7 +506,9 @@ static void (^reportSentCallback)(void);
   // check our handlers
   FIRCLSDispatchAfter(2.0, dispatch_get_main_queue(), ^{
     FIRCLSExceptionCheckHandlers((__bridge void *)(self));
+#if CLS_SIGNAL_SUPPORTED
     FIRCLSSignalCheckHandlers();
+#endif
 #if CLS_MACH_EXCEPTION_SUPPORTED
     FIRCLSMachExceptionCheckHandlers();
 #endif
@@ -522,7 +524,20 @@ static void (^reportSentCallback)(void);
   });
 }
 
-- (BOOL)checkBundleIDExists {
+- (BOOL)validateAppIdentifiers {
+  // When the ApplicationIdentifierModel fails to initialize, it is usually due to
+  // failing computeExecutableInfo. This can happen if the user sets the
+  // Exported Symbols File in Build Settings, and leaves off the one symbol
+  // that Crashlytics needs, "__mh_execute_header" (wich is defined in mach-o/ldsyms.h as
+  // _MH_EXECUTE_SYM). From https://github.com/firebase/firebase-ios-sdk/issues/5020
+  if (!self.appIDModel) {
+    FIRCLSErrorLog(
+        @"Crashlytics could not find the symbol for the app's main function and cannot "
+        @"start up. This can happen when Exported Symbols File is set in Build Settings. To "
+        @"resolve this, add \"__mh_execute_header\" as a newline to your Exported Symbols File.");
+    return NO;
+  }
+
   if (self.appIDModel.bundleID.length == 0) {
     FIRCLSErrorLog(@"An application must have a valid bundle identifier in its Info.plist");
     return NO;

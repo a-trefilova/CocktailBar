@@ -25,6 +25,8 @@ class FavouritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
+        tableView.delegate = self
+        tableView.dataSource = self
         setUpTableView()
     }
     
@@ -49,11 +51,11 @@ class FavouritesViewController: UIViewController {
     
     private func setUPNavBar() {
         navigationController?.navigationBar.backgroundColor = .white
-        
     }
     
     private func setUpTableView() {
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.tableFooterView = UIView()
     }
     
 }
@@ -115,5 +117,7 @@ extension FavouritesViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .fade)
            }
        }
+    
+    
     
 }

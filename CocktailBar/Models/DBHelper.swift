@@ -8,7 +8,7 @@
 
 import Foundation
 import SQLite3
-import SQLite
+//import SQLite
 
 class DBHelper {
     
@@ -123,10 +123,12 @@ class DBHelper {
                 let ingridient1 = String(describing: String(cString: sqlite3_column_text(queryStatement, 7)))
                 let ingridient2 = String(describing: String(cString: sqlite3_column_text(queryStatement, 8)))
                 let ingridient3 = String(describing: String(cString: sqlite3_column_text(queryStatement, 9)))
+            
                 let ingridient4 = String(describing: String(cString: sqlite3_column_text(queryStatement, 10)))
                 let ingridient5 = String(describing: String(cString: sqlite3_column_text(queryStatement, 11)))
                 let ingridient6 = String(describing: String(cString: sqlite3_column_text(queryStatement, 12)))
                 let ingridient7 = String(describing: String(cString: sqlite3_column_text(queryStatement, 13)))
+           
                 let isFavourite = sqlite3_column_int(queryStatement, 14)
                 psns.append(CurrentCocktail(drinkId: drinkId,
                                             drinkName: drinkName,

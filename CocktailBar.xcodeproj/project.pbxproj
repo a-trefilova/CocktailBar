@@ -17,12 +17,13 @@
 		12554E1224F6942600EF183F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12554E1124F6942600EF183F /* StringExtension.swift */; };
 		12554E1424F6946100EF183F /* SearchVCScrollViewDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12554E1324F6946100EF183F /* SearchVCScrollViewDelegateExtension.swift */; };
 		12554E1624F694A600EF183F /* SearchVCSearchResultsUpdatingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12554E1524F694A600EF183F /* SearchVCSearchResultsUpdatingExtension.swift */; };
+		12554E1B24F69DBA00EF183F /* DBDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12554E1A24F69DBA00EF183F /* DBDelegateProtocol.swift */; };
+		12554E1D24F6A20F00EF183F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12554E1C24F6A20F00EF183F /* AuthViewController.swift */; };
 		1272A01424C0603C00B21B0B /* PictureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272A01324C0603C00B21B0B /* PictureManager.swift */; };
 		1272A01624C063ED00B21B0B /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272A01524C063ED00B21B0B /* GlobalVariables.swift */; };
 		12756D9424E18B850095CFB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12756D9324E18B850095CFB1 /* GoogleService-Info.plist */; };
 		12756D9724E294530095CFB1 /* CloudFirestoreHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12756D9624E294530095CFB1 /* CloudFirestoreHelper.swift */; };
 		12756D9924E6C62F0095CFB1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12756D9824E6C62F0095CFB1 /* CustomSegmentedControl.swift */; };
-		12756DEC24EBDA5D0095CFB1 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12756DEB24EBDA5D0095CFB1 /* Nuke */; };
 		12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6624A3439800183DD0 /* SearchViewController.swift */; };
 		12E12F6F24A7990D00183DD0 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E12F6E24A7990D00183DD0 /* SearchViewCell.swift */; };
 		12E12F7124A941E900183DD0 /* SearchViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12E12F7024A941E900183DD0 /* SearchViewCell.xib */; };
@@ -37,8 +38,23 @@
 		12EE37092485870600E95779 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12EE37072485870600E95779 /* LaunchScreen.storyboard */; };
 		12EE3713248588D900E95779 /* Cocktail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE3712248588D900E95779 /* Cocktail.swift */; };
 		12EE371724858A6100E95779 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE371624858A6100E95779 /* NetworkManager.swift */; };
-		78B7C77CB4AF668749201AF7 /* Pods_CocktailBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDBCB48EDDC8FE6884E5F69 /* Pods_CocktailBar.framework */; };
+		D6B8EC9B2587707600F46F12 /* Pods_CocktailBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDBCB48EDDC8FE6884E5F69 /* Pods_CocktailBar.framework */; };
+		D6B8EC9C2587707600F46F12 /* Pods_CocktailBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBDBCB48EDDC8FE6884E5F69 /* Pods_CocktailBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D6B8EC9D2587707600F46F12 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D6B8EC9C2587707600F46F12 /* Pods_CocktailBar.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		120C406324AFC5F1006B3789 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +67,8 @@
 		12554E1124F6942600EF183F /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		12554E1324F6946100EF183F /* SearchVCScrollViewDelegateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCScrollViewDelegateExtension.swift; sourceTree = "<group>"; };
 		12554E1524F694A600EF183F /* SearchVCSearchResultsUpdatingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCSearchResultsUpdatingExtension.swift; sourceTree = "<group>"; };
+		12554E1A24F69DBA00EF183F /* DBDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBDelegateProtocol.swift; sourceTree = "<group>"; };
+		12554E1C24F6A20F00EF183F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1272A01324C0603C00B21B0B /* PictureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureManager.swift; sourceTree = "<group>"; };
 		1272A01524C063ED00B21B0B /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		12756D9324E18B850095CFB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -82,8 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78B7C77CB4AF668749201AF7 /* Pods_CocktailBar.framework in Frameworks */,
-				12756DEC24EBDA5D0095CFB1 /* Nuke in Frameworks */,
+				D6B8EC9B2587707600F46F12 /* Pods_CocktailBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +115,14 @@
 				12554E1524F694A600EF183F /* SearchVCSearchResultsUpdatingExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		12554E1924F69DA000EF183F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				12554E1A24F69DBA00EF183F /* DBDelegateProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		1272A01724C9AB4100B21B0B /* ScreenShots */ = {
@@ -130,6 +155,7 @@
 				12EB9BF224AB4F9300CE05E3 /* DetailViewController.swift */,
 				120C406324AFC5F1006B3789 /* CollectionViewController.swift */,
 				1221A0D724EFC14E0070EB7F /* FilterViewController.swift */,
+				12554E1C24F6A20F00EF183F /* AuthViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +203,7 @@
 		12EE36FB2485870400E95779 /* CocktailBar */ = {
 			isa = PBXGroup;
 			children = (
+				12554E1924F69DA000EF183F /* Protocols */,
 				1272A01724C9AB4100B21B0B /* ScreenShots */,
 				12E12F6D24A7954C00183DD0 /* Models */,
 				12E12F6C24A7954100183DD0 /* Network */,
@@ -223,6 +250,7 @@
 				12EE36F72485870400E95779 /* Resources */,
 				19BDF4FCE193A4C3F5C5170C /* [CP] Embed Pods Frameworks */,
 				12756D9524E18D6E0095CFB1 /* ShellScript */,
+				D6B8EC9D2587707600F46F12 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -230,7 +258,6 @@
 			);
 			name = CocktailBar;
 			packageProductDependencies = (
-				12756DEB24EBDA5D0095CFB1 /* Nuke */,
 			);
 			productName = CocktailBar;
 			productReference = 12EE36F92485870400E95779 /* CocktailBar.app */;
@@ -262,6 +289,7 @@
 			mainGroup = 12EE36F02485870400E95779;
 			packageReferences = (
 				12756DEA24EBDA5C0095CFB1 /* XCRemoteSwiftPackageReference "Nuke" */,
+				D6C3FB75258768E40064ABA5 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = 12EE36FA2485870400E95779 /* Products */;
 			projectDirPath = "";
@@ -331,7 +359,7 @@
 		};
 		19BDF4FCE193A4C3F5C5170C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -359,6 +387,7 @@
 				12EE36FD2485870400E95779 /* AppDelegate.swift in Sources */,
 				12E12F6724A3439800183DD0 /* SearchViewController.swift in Sources */,
 				1221A0DA24EFE1C30070EB7F /* FilterViewCell.swift in Sources */,
+				12554E1B24F69DBA00EF183F /* DBDelegateProtocol.swift in Sources */,
 				12554E1624F694A600EF183F /* SearchVCSearchResultsUpdatingExtension.swift in Sources */,
 				12756D9924E6C62F0095CFB1 /* CustomSegmentedControl.swift in Sources */,
 				12EB9BED24AA4F7D00CE05E3 /* GradientView.swift in Sources */,
@@ -369,6 +398,7 @@
 				12EE36FF2485870400E95779 /* SceneDelegate.swift in Sources */,
 				12EE371724858A6100E95779 /* NetworkManager.swift in Sources */,
 				1272A01624C063ED00B21B0B /* GlobalVariables.swift in Sources */,
+				12554E1D24F6A20F00EF183F /* AuthViewController.swift in Sources */,
 				1221A0D824EFC14E0070EB7F /* FilterViewController.swift in Sources */,
 				120C406824B260A0006B3789 /* DataProvider.swift in Sources */,
 				12554E1224F6942600EF183F /* StringExtension.swift in Sources */,
@@ -586,15 +616,15 @@
 				minimumVersion = 9.1.1;
 			};
 		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		12756DEB24EBDA5D0095CFB1 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 12756DEA24EBDA5C0095CFB1 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
+		D6C3FB75258768E40064ABA5 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.12.2;
+			};
 		};
-/* End XCSwiftPackageProductDependency section */
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 12EE36F12485870400E95779 /* Project object */;
 }

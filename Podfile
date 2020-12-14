@@ -6,12 +6,9 @@ target 'CocktailBar' do
   use_frameworks!
 
   # Pods for CocktailBar
-	pod 'SQLite.swift', '~> 0.12.0'
-
-	pod 'Firebase/Crashlytics'
+pod 'Firebase/Crashlytics'
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Firestore'
-
-# Optionally, include the Swift extensions if you're using Swift.
-	pod 'FirebaseFirestoreSwift'
+pod 'SQLite.swift', '~> 0.12.0'
+pod 'Nuke', '~> 9.0'
 end

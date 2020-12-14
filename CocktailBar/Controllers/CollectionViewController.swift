@@ -56,6 +56,7 @@ class CollectionViewController: UIViewController {
             arrayOfCategories.append(item.category)
             }
         }
+        guard arrayOfCategories.count != 0 else { return }
         let firstItem = arrayOfCategories.removeFirst()
         arrayOfCategories.append(firstItem)
         categories = arrayOfCategories

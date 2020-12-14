@@ -8,7 +8,8 @@
 
 import UIKit
 import SQLite
-
+//import SQLite
+import SQLite3
 class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPresentationControllerDelegate{
     
 // MARK: - IBOutlets
@@ -36,6 +37,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         tableView.register(UINib(nibName: "SearchViewCell", bundle: nil), forCellReuseIdentifier: SearchViewCell.reuseId)
         setUpSearchController()
         setUpTableView()
@@ -91,6 +93,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UIPopoverPres
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
+    private func fetchItems(ofIndex index: Int) {
+        //let id = searchResults[index]
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: index, section: 0)
+            if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
+                self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            }
+        }
+        
+    }
     
 //MARK: - IBActions
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
@@ -178,7 +190,17 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-
+extension SearchViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            self.fetchItems(ofIndex: indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        
+    }
+}
 
 
 

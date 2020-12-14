@@ -57,11 +57,22 @@ class SearchViewCell: UITableViewCell {
         categoryLabel.text = properties.category
         isAlcoholLabel.text = properties.isAlco
         guard let url = URL(string: properties.imageUrl) else { return }
-        Nuke.loadImage(with: url, into: cocktailImage)
+        cocktailImage.isHidden = true
+        activityIndicator.startAnimating()
+            Nuke.loadImage(with: url, into: self.cocktailImage) { [weak self] (_) in
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.cocktailImage.isHidden = false
+                }
+            }
+        
+        
     }
     
 // MARK: - Private Methods
     private func setUpCell() {
+        activityIndicator.hidesWhenStopped = true
+        
         backgroundColor = .clear
         selectionStyle = .none
         
